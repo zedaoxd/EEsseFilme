@@ -1,24 +1,25 @@
 package com.api.eessefilme.dto;
 
-import com.api.eessefilme.entities.Genre;
+import java.io.Serializable;
+
+import com.api.eessefilme.entities.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class GenreDTO implements Serializable {
+public class RoleDTO implements Serializable{
 
 	@EqualsAndHashCode.Include
-    private Long id;
-    private String name;
-
-    public GenreDTO(Genre genre) {
-        this(genre.getId(), genre.getName());
-    }
+	private Long id;
+	private String name;
+	
+	public RoleDTO(Role role) {
+		this(role.getId(), role.getName());
+	}
 }
