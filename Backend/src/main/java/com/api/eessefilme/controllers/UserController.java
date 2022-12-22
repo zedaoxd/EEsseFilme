@@ -2,12 +2,11 @@ package com.api.eessefilme.controllers;
 
 import com.api.eessefilme.dto.UserDTO;
 import com.api.eessefilme.dto.UserInsertDTO;
+import com.api.eessefilme.dto.UserUpdateDTO;
 import com.api.eessefilme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,9 +39,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO dto, @PathVariable("id") Long id) {
-        dto = service.update(dto, id);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<UserDTO> update(@RequestBody @Valid UserUpdateDTO dto, @PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.update(dto, id));
     }
 
     @DeleteMapping(value = "/{id}")

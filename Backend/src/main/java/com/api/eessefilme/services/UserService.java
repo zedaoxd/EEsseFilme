@@ -2,6 +2,7 @@ package com.api.eessefilme.services;
 
 import com.api.eessefilme.dto.UserDTO;
 import com.api.eessefilme.dto.UserInsertDTO;
+import com.api.eessefilme.dto.UserUpdateDTO;
 import com.api.eessefilme.entities.Role;
 import com.api.eessefilme.entities.User;
 import com.api.eessefilme.repositories.RoleRepository;
@@ -48,7 +49,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(UserDTO dto, Long id) {
+    public UserDTO update(UserUpdateDTO dto, Long id) {
         try {
             User entity = repository.getReferenceById(id);
             convertDtoToEntity(dto, entity);
