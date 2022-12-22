@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +19,8 @@ public class RoleDTO implements Serializable{
 
 	@EqualsAndHashCode.Include
 	private Long id;
+
+	@NotBlank(message = "can't be blank")
 	private String name;
 	
 	public RoleDTO(Role role) {

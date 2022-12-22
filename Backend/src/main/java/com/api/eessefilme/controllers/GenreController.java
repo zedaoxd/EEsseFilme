@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -24,19 +25,19 @@ public class GenreController {
 
     @GetMapping(value = "/{id}") // /api/genre/id
     public ResponseEntity<GenreDTO> findById(@PathVariable("id") Long id) {
-            GenreDTO dto = service.findById(id);
+        GenreDTO dto = service.findById(id);
         return ResponseEntity.ok(dto); // {id: ??, name: ??}
     }
 
     @PostMapping
-    public ResponseEntity<GenreDTO> save(@RequestBody GenreDTO dto) { // {name: ??}
+    public ResponseEntity<GenreDTO> save(@RequestBody @Valid GenreDTO dto) { // {name: ??}
         dto = service.save(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<GenreDTO> update(@RequestBody GenreDTO dto, @PathVariable("id") Long id) {
+    public ResponseEntity<GenreDTO> update(@RequestBody @Valid GenreDTO dto, @PathVariable("id") Long id) {
         dto = service.update(dto, id);
         return ResponseEntity.ok(dto);
     }

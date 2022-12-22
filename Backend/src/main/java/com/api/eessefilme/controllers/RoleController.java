@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.api.eessefilme.dto.RoleDTO;
 import com.api.eessefilme.services.RoleService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api/role")
 public class RoleController {
@@ -36,14 +38,14 @@ public class RoleController {
 	}
 
 	@PostMapping
-	public ResponseEntity<RoleDTO> save(@RequestBody RoleDTO dto){
+	public ResponseEntity<RoleDTO> save(@RequestBody @Valid RoleDTO dto){
 		dto = service.save(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<RoleDTO> update(@RequestBody RoleDTO dto, @PathVariable("id") Long id){
+	public ResponseEntity<RoleDTO> update(@RequestBody @Valid RoleDTO dto, @PathVariable("id") Long id){
 		return ResponseEntity.ok(service.update(dto, id));
 	}
 	
