@@ -21,7 +21,7 @@ import com.api.eessefilme.services.RoleService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/role")
+@RequestMapping(value = "/api/roles")
 public class RoleController {
 
 	@Autowired

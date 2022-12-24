@@ -43,6 +43,10 @@ public class Comment implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "movie_id")
+	private Movie movie;
 	
 	@PrePersist
 	public void prePersist() {

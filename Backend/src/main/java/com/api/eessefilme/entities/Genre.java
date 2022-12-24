@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_genre")
@@ -23,4 +25,7 @@ public class Genre implements Serializable {
 
     @Column(length = 50, nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "genres")
+    private Set<Movie> movies = new HashSet<>();
 }
