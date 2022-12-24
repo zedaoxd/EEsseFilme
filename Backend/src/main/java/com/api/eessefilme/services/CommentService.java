@@ -1,0 +1,81 @@
+package com.api.eessefilme.services;
+
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.api.eessefilme.dto.CommentDTO;
+import com.api.eessefilme.entities.Comment;
+import com.api.eessefilme.entities.User;
+import com.api.eessefilme.repositories.CommentRepository;
+import com.api.eessefilme.repositories.UserRepository;
+import com.api.eessefilme.services.exceptions.DatabaseException;
+import com.api.eessefilme.services.exceptions.ResourceNotFoundException;
+
+@Service
+public class CommentService {
+
+	@Autowired
+	private CommentRepository repository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private AuthService authService;
+	
+	@Transactional(readOnly = true)
+	public Page<CommentDTO> paged(Pageable pageable){
+		return repository.findAll(pageable).map(x -> new CommentDTO(x));
+	}
+	
+	@Transactional(readOnly = true)
+	public CommentDTO findById(Long id){
+		Optional<Comment> optional = repository.findById(id);
+		Comment entity = optional.orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+		return new CommentDTO(entity);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<CommentDTO> findCommentsByUser(Pageable pageable, Long userId){
+		User entity = userRepository.getReferenceById(userId);
+		return repository.findByUser(entity, pageable).map(x -> new  CommentDTO(x));
+	}
+	
+	@Transactional
+	public CommentDTO save(CommentDTO dto){
+		Comment entity = new Comment();
+		entity.setDescription(dto.getDescription());
+		entity.setUser(authService.authenticated());
+		return new CommentDTO(repository.save(entity));
+	}
+	
+	@Transactional
+	public CommentDTO update(CommentDTO dto, Long id) {
+		try {
+			Comment entity = repository.getReferenceById(id);
+			entity.setDescription(dto.getDescription());
+			entity.setSpoiler(dto.isSpoiler());
+			return new CommentDTO(repository.save(entity));
+		} catch(EntityNotFoundException e) {
+            throw new ResourceNotFoundException("ID not found: " + id);
+        }
+	}
+	
+	public void delete(Long id) {
+		try {
+            repository.deleteById(id);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("ID not found: " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity violation");
+        }
+	}
+}

@@ -3,8 +3,10 @@ package com.api.eessefilme.services;
 import com.api.eessefilme.dto.UserDTO;
 import com.api.eessefilme.dto.UserInsertDTO;
 import com.api.eessefilme.dto.UserUpdateDTO;
+import com.api.eessefilme.entities.Comment;
 import com.api.eessefilme.entities.Role;
 import com.api.eessefilme.entities.User;
+import com.api.eessefilme.repositories.CommentRepository;
 import com.api.eessefilme.repositories.RoleRepository;
 import com.api.eessefilme.repositories.UserRepository;
 import com.api.eessefilme.services.exceptions.DatabaseException;
@@ -31,6 +33,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
+    
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -87,6 +92,12 @@ public class UserService implements UserDetailsService {
             Role role = roleRepository.getReferenceById(roleDto.getId());
             entity.getRoles().add(role);
         });
+        
+        entity.getComments().clear();
+        dto.getComments().forEach(commentDto -> {
+        	Comment comment = commentRepository.getReferenceById(commentDto.getId());
+        	entity.getComments().add(comment);
+        });
     }
 
     @Override
@@ -95,7 +106,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found: " + username);
         }
-
         return user;
     }
 }
