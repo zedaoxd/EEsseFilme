@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Size;
+
+import java.util.ArrayList;
 import java.util.Set;
 
 @Getter
@@ -16,7 +18,7 @@ public class UserInsertDTO extends UserDTO {
     private String password;
 
     public UserInsertDTO(Long id, String firstName, String lastName, String email, Set<RoleDTO> roles, String password) {
-        super(id, firstName, lastName, email, roles);
+        super(id, firstName, lastName, email, roles, new ArrayList<>());
         this.password = password;
     }
 }
