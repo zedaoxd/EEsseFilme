@@ -18,7 +18,7 @@ public class UserInsertDTO extends UserDTO {
     private String password;
 
     public UserInsertDTO(Long id, String firstName, String lastName, String email, Set<RoleDTO> roles, String password) {
-        super(id, firstName, lastName, email, roles, new ArrayList<>());
+        super(id, firstName, lastName, email, roles, new ArrayList<>(), new ArrayList<>());
         this.password = password;
     }
 }

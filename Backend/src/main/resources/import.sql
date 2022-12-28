@@ -11,9 +11,9 @@ INSERT INTO tb_genre(name) VALUES ('Ficção');
 INSERT INTO tb_genre(name) VALUES ('Terror');
 INSERT INTO tb_genre(name) VALUES ('Animação');
 
-INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsis, parental_Rating, main_Actors, average_Rating, movie_Trailer) VALUES ('Harry Potter', 'Harry Potter', 'ecc15fee-9e7b-4820-9627-a67dca3d7260image04_grd.png', '2022-10-10', 'menino magico', 14, 'nao sei', 4.5, 'link do trailer');
-INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsis, parental_Rating, main_Actors, average_Rating, movie_Trailer) VALUES ('Branca de Neve', 'Branca de Neve', 'ecc15fee-9e7b-4820-9627-a67dca3d7260image04_grd.png', '2022-10-10', 'menino magico', 18, 'nao sei', 3.5, 'link do trailer');
-INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsis, parental_Rating, main_Actors, average_Rating, movie_Trailer) VALUES ('Galinha Pintadinha', 'Galinha Pintadinha', 'ecc15fee-9e7b-4820-9627-a67dca3d7260image04_grd.png', '2022-10-10', 'menino magico', 10, 'nao sei', 4, 'link do trailer');
+INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsis, parental_Rating, main_Actors, average_Rating, movie_Trailer) VALUES ('Harry Potter', 'Harry Potter', 'ecc15fee-9e7b-4820-9627-a67dca3d7260image04_grd.png', '2022-10-10', 'menino magico', 14, 'nao sei', 0, 'link do trailer');
+INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsis, parental_Rating, main_Actors, average_Rating, movie_Trailer) VALUES ('Branca de Neve', 'Branca de Neve', 'ecc15fee-9e7b-4820-9627-a67dca3d7260image04_grd.png', '2022-10-10', 'menino magico', 18, 'nao sei', 0, 'link do trailer');
+INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsis, parental_Rating, main_Actors, average_Rating, movie_Trailer) VALUES ('Galinha Pintadinha', 'Galinha Pintadinha', 'ecc15fee-9e7b-4820-9627-a67dca3d7260image04_grd.png', '2022-10-10', 'menino magico', 10, 'nao sei', 0, 'link do trailer');
 
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (1, 1);
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (2, 1);

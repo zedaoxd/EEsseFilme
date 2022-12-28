@@ -31,6 +31,11 @@ public class UserController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping(value = "/profile")
+    public ResponseEntity<UserDTO> findProfile() {
+        return ResponseEntity.ok(service.getProfile());
+    }
+
     @PostMapping
     public ResponseEntity<UserDTO> save(@RequestBody @Valid UserInsertDTO insertDTO) {
         UserDTO dto = service.save(insertDTO);

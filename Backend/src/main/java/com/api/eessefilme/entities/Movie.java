@@ -50,6 +50,9 @@ public class Movie implements Serializable {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Rating> ratings = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(name = "tb_movie_genre",
         joinColumns = @JoinColumn(name = "movie_id"),

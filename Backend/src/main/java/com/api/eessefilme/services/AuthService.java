@@ -9,6 +9,8 @@ import com.api.eessefilme.entities.User;
 import com.api.eessefilme.repositories.UserRepository;
 import com.api.eessefilme.services.exceptions.UnauthorizedException;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class AuthService {
 
@@ -18,7 +20,8 @@ public class AuthService {
 	public User authenticated() {
 		try {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			return userRepository.findByEmail(username);
+			User user = userRepository.findByEmail(username);
+			return user;
 		} catch(Exception e){
 			throw new UnauthorizedException("Invalid user");
 		}

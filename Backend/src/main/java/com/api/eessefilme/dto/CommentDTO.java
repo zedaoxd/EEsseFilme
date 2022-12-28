@@ -25,6 +25,8 @@ public class CommentDTO {
 	private Date dateComment;
 	
 	private UserDTO user;
+
+	private MovieDTO movie;
 	
 	public CommentDTO(Comment comment) {
 		this.id = comment.getId();
@@ -32,5 +34,6 @@ public class CommentDTO {
 		this.spoiler = comment.isSpoiler();
 		this.dateComment = comment.getDateComment();
 		this.user = new UserDTO(comment.getUser());
+		this.movie = new MovieDTO(comment.getMovie());
 	}
 }

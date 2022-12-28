@@ -1,6 +1,7 @@
 package com.api.eessefilme.dto;
 
 import com.api.eessefilme.entities.Comment;
+import com.api.eessefilme.entities.Rating;
 import com.api.eessefilme.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,10 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -37,6 +35,8 @@ public class UserDTO {
     
     private List<CommentDTO> comments = new ArrayList<>();
 
+    private List<RatingDTO> ratings = new ArrayList<>();
+
     public UserDTO(User entity) {
         this.id = entity.getId();
         this.firstName = entity.getFirstName();
@@ -51,6 +51,25 @@ public class UserDTO {
         this.lastName = entity.getLastName();
         this.email = entity.getEmail();
         entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+        comments.forEach(comment -> this.comments.add(new CommentDTO(comment)));
+    }
+
+    public UserDTO(User entity, Collection<Rating> ratings) {
+        this.id = entity.getId();
+        this.firstName = entity.getFirstName();
+        this.lastName = entity.getLastName();
+        this.email = entity.getEmail();
+        entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+        ratings.forEach(r -> this.ratings.add(new RatingDTO(r)));
+    }
+
+    public UserDTO(User entity, List<Rating> ratings, List<Comment> comments) {
+        this.id = entity.getId();
+        this.firstName = entity.getFirstName();
+        this.lastName = entity.getLastName();
+        this.email = entity.getEmail();
+        entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+        ratings.forEach(r -> this.ratings.add(new RatingDTO(r)));
         comments.forEach(comment -> this.comments.add(new CommentDTO(comment)));
     }
 }

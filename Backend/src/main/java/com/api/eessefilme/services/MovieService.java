@@ -7,9 +7,12 @@ import com.api.eessefilme.entities.Movie;
 import com.api.eessefilme.repositories.CommentRepository;
 import com.api.eessefilme.repositories.GenreRepository;
 import com.api.eessefilme.repositories.MovieRepository;
+import com.api.eessefilme.repositories.RatingRepository;
 import com.api.eessefilme.services.exceptions.DatabaseException;
 import com.api.eessefilme.services.exceptions.ResourceNotFoundException;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -31,6 +34,8 @@ import java.util.UUID;
 @Service
 public class MovieService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private MovieRepository repository;
 
@@ -39,6 +44,9 @@ public class MovieService {
 
     @Autowired
     private GenreRepository genreRepository;
+
+    @Autowired
+    private RatingRepository ratingRepository;
 
     private final String PATH_IMAGE = "./src/main/resources/images/";
 
@@ -137,5 +145,12 @@ public class MovieService {
             Genre genre = genreRepository.getReferenceById(x.getId());
             entity.getGenres().add(genre);
         });
+    }
+
+    public void updateAverageRating(Long idMovie) {
+        Movie movie = repository.getReferenceById(idMovie);
+        Double newAverage = ratingRepository.updateAverage(movie.getId());
+        movie.setAverageRating(newAverage);
+        this.repository.save(movie);
     }
 }

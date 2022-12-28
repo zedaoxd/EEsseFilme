@@ -25,9 +25,7 @@ public class GenreService {
 
     @Transactional(readOnly = true)
     public List<GenreDTO> findAll() {
-        return repository.findAll(Sort.by("name")) // tras tudo numa lista
-                .stream().map(x -> new GenreDTO(x)) // transforma tudo em um objeto paginado de generoDTO
-                .collect(Collectors.toList()); // transforma de novo na lista e retorna
+        return repository.findAll(Sort.by("name")).stream().map(x -> new GenreDTO(x)).collect(Collectors.toList());
     }
 
 
@@ -47,9 +45,9 @@ public class GenreService {
     }
 
     @Transactional
-    public GenreDTO update(GenreDTO dto, Long id) { // {name: "terror"}
+    public GenreDTO update(GenreDTO dto, Long id) {
         try {
-            Genre entity = repository.getReferenceById(id); // error EntityNotFound se nao tiver esse ID
+            Genre entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
             entity = repository.save(entity);
             return new GenreDTO(entity);

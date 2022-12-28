@@ -38,6 +38,9 @@ public class UserService implements UserDetailsService {
     private CommentRepository commentRepository;
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
@@ -50,6 +53,12 @@ public class UserService implements UserDetailsService {
         Optional<User> optional = repository.findById(id);
         User entity = optional.orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
         return new UserDTO(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDTO getProfile() {
+        User entity = authService.authenticated();
+        return new UserDTO(entity, entity.getRatings(),entity.getComments());
     }
 
     @Transactional
@@ -108,4 +117,5 @@ public class UserService implements UserDetailsService {
         }
         return user;
     }
+
 }

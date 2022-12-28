@@ -1,8 +1,10 @@
 package com.api.eessefilme.controllers;
 
-import com.api.eessefilme.dto.GenreDTO;
-import com.api.eessefilme.services.GenreService;
+import com.api.eessefilme.dto.RatingDTO;
+import com.api.eessefilme.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,32 +14,32 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/genres")
-public class GenreController {
+@RequestMapping(value = "/api/ratings")
+public class RatingController {
 
     @Autowired
-    private GenreService service;
+    private RatingService service;
 
     @GetMapping
-    public ResponseEntity<List<GenreDTO>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<Page<RatingDTO>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(service.paged(pageable));
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<GenreDTO> findById(@PathVariable("id") Long id) {
-        GenreDTO dto = service.findById(id);
+    public ResponseEntity<RatingDTO> findById(@PathVariable("id") Long id) {
+        RatingDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<GenreDTO> save(@RequestBody @Valid GenreDTO dto) { // {name: ??}
+    public ResponseEntity<RatingDTO> save(@RequestBody @Valid RatingDTO dto) {
         dto = service.save(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<GenreDTO> update(@RequestBody @Valid GenreDTO dto, @PathVariable("id") Long id) {
+    public ResponseEntity<RatingDTO> update(@RequestBody @Valid RatingDTO dto, @PathVariable("id") Long id) {
         dto = service.update(dto, id);
         return ResponseEntity.ok(dto);
     }
