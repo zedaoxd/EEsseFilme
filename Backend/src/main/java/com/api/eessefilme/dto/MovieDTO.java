@@ -1,6 +1,7 @@
 package com.api.eessefilme.dto;
 
 import com.api.eessefilme.entities.Comment;
+import com.api.eessefilme.entities.Genre;
 import com.api.eessefilme.entities.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -56,7 +57,23 @@ public class MovieDTO implements Serializable {
         this.originTitle = entity.getOriginTitle();
         this.id = entity.getId();
         this.genres.clear();
-        entity.getGenres().forEach(x -> this.genres.add(new GenreDTO(x)));
+        //entity.getGenres().forEach(x -> this.genres.add(new GenreDTO(x)));
+    }
+
+    public MovieDTO(Movie entity, boolean genres) {
+        this.averageRating = entity.getAverageRating();
+        this.movieTrailer = entity.getMovieTrailer();
+        this.mainActors = entity.getMainActors();
+        this.parentalRating = entity.getParentalRating();
+        this.synopsis = entity.getSynopsis();
+        this.releaseDate = entity.getReleaseDate();
+        this.image = entity.getImage();
+        this.nationalTitle = entity.getNationalTitle();
+        this.originTitle = entity.getOriginTitle();
+        this.id = entity.getId();
+        this.genres.clear();
+        if (genres)
+            entity.getGenres().forEach(x -> this.genres.add(new GenreDTO(x)));
     }
 
     public MovieDTO(Movie entity, List<Comment> comments) {

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/movies")
@@ -30,6 +31,16 @@ public class MovieController {
     public ResponseEntity<MovieDTO> findById(@PathVariable("id") Long id) {
         MovieDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping(value = "/top10rating")
+    public ResponseEntity<List<MovieDTO>> findTop10Rating() {
+        return ResponseEntity.ok(service.findTop10Rating());
+    }
+
+    @GetMapping(value = "/top10date")
+    public ResponseEntity<List<MovieDTO>> findTop10Date() {
+        return ResponseEntity.ok(service.findTop10Date());
     }
 
     @PostMapping

@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -52,7 +54,7 @@ public class MovieService {
 
     @Transactional(readOnly = true)
     public Page<MovieDTO> findAll(Pageable pageable){
-        var page = repository.findAll(pageable).map(x -> new MovieDTO(x));
+        var page = repository.findAll(pageable).map(x -> new MovieDTO(x, true));
         for(MovieDTO m: page){
             m.setImageByte(getImageByte(m.getImage()));
         }
@@ -63,7 +65,7 @@ public class MovieService {
     public MovieDTO findById(Long id) {
         Optional<Movie> optional = repository.findById(id);
         Movie entity = optional.orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
-        MovieDTO dto = new MovieDTO(entity);
+        MovieDTO dto = new MovieDTO(entity, true);
         dto.setImageByte(getImageByte(entity.getImage()));
         return dto;
     }
@@ -96,6 +98,21 @@ public class MovieService {
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Integrity violation");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<MovieDTO> findTop10Rating() {
+        List<Movie> movies = repository.findTop10PlusAverageRating();
+        repository.findMovieWithCategories(movies);
+        return movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<MovieDTO> findTop10Date() {
+        List<Movie> movies = repository.findFirst10ByOrderByReleaseDateDesc();
+        repository.findMovieWithCategories(movies);
+        //movies = movies.stream().sorted((x , y) -> y.getReleaseDate().compareTo(x.getReleaseDate())).collect(Collectors.toList());
+        return movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
     }
 
     public String saveImage(MultipartFile file)  {
