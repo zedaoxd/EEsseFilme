@@ -2,11 +2,13 @@
   margin-top: 20px;
 
   div {
-    text-align: right;
-    font-size: 30px;
-    font-weight: 700;
-    color: yellow;
-    text-transform: uppercase;
+    h1 {
+      font-size: 30px;
+      color: var(--color-title);
+      font-weight: 700;
+      text-align: right;
+      text-transform: uppercase;
+    }
 
     & + div {
       margin-top: 5px;
@@ -15,23 +17,11 @@
       font-size: 15px;
       font-weight: 400;
     }
-
-    & .swiper-button-prev {
-      color: black;
-      margin-top: -210px;
-    }
-
-    & .swiper-button-prev::after {
-      font-weight: 900;
-    }
-
-    & .swiper-button-next {
-      color: black;
-      margin-top: -210px;
-    }
-
-    & .swiper-button-next::after {
-      font-weight: 900;
-    }
   }
+}
+
+.sm-movie-slider-container {
+  border: 10px solid var(--color-border);
+  border-radius: 30px;
+  padding: 10px;
 }

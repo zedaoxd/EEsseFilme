@@ -8,11 +8,14 @@ type Props = {
 };
 
 const MovieSlider = ({ title, movies }: Props) => {
-  console.log(movies);
   return (
     <div className="sm-container">
-      <div>{title}</div>
-      <div className="teste">{<Slider movies={movies} />}</div>
+      <div>
+        <h1>{title}</h1>
+      </div>
+      <div className="sm-movie-slider-container">
+        {<Slider movies={movies} />}
+      </div>
     </div>
   );
 };

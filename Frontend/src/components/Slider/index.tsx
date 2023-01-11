@@ -33,7 +33,12 @@ const Slider = ({ movies }: Props) => {
       {movies?.map((m) => (
         <SwiperSlide key={m.id}>
           <Link to={`/movie/${m.id}`}>
-            <img src={`data:image;base64, ${m.imageByte}`} />
+            <div className="img-container">
+              <img
+                src={`data:image;base64, ${m.imageByte}`}
+                title={m.originTitle}
+              />
+            </div>
           </Link>
           <span>{m.originTitle}</span>
         </SwiperSlide>

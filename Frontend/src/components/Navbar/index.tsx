@@ -1,6 +1,7 @@
 import HomeIcon from "@mui/icons-material/Home";
 import MovieIcon from "@mui/icons-material/Movie";
 import PersonIcon from "@mui/icons-material/Person";
+import { NavLink } from "react-router-dom";
 import "./styles.scss";
 
 const Navbar = () => {
@@ -9,15 +10,17 @@ const Navbar = () => {
       <div>
         <h2>E Esse Filme</h2>
         <nav>
-          <button>
+          <NavLink to={"/"}>
             <HomeIcon /> <span>Página Inicial</span>
-          </button>
-          <button>
+          </NavLink>
+
+          <NavLink to={"/movies"}>
             <MovieIcon /> <span>Repositório de Filmes</span>
-          </button>
-          <button>
+          </NavLink>
+
+          <NavLink to={"/login"}>
             <PersonIcon /> <span>Área de Login</span>
-          </button>
+          </NavLink>
         </nav>
       </div>
     </div>
