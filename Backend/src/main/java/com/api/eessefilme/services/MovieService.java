@@ -104,7 +104,11 @@ public class MovieService {
     public List<MovieDTO> findTop10Rating() {
         List<Movie> movies = repository.findTop10PlusAverageRating();
         repository.findMovieWithCategories(movies);
-        return movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
+        List<MovieDTO> _dtos = movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
+        for(MovieDTO d : _dtos) {
+            d.setImageByte(getImageByte(d.getImage()));
+        }
+        return _dtos;
     }
 
     @Transactional(readOnly = true)
@@ -112,7 +116,11 @@ public class MovieService {
         List<Movie> movies = repository.findFirst10ByOrderByReleaseDateDesc();
         repository.findMovieWithCategories(movies);
         //movies = movies.stream().sorted((x , y) -> y.getReleaseDate().compareTo(x.getReleaseDate())).collect(Collectors.toList());
-        return movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
+        List<MovieDTO> _dtos = movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
+        for(MovieDTO d : _dtos) {
+            d.setImageByte(getImageByte(d.getImage()));
+        }
+        return _dtos;
     }
 
     public String saveImage(MultipartFile file)  {
