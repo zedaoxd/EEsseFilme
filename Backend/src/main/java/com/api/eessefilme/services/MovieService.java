@@ -65,7 +65,7 @@ public class MovieService {
     public MovieDTO findById(Long id) {
         Optional<Movie> optional = repository.findById(id);
         Movie entity = optional.orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
-        MovieDTO dto = new MovieDTO(entity, true);
+        MovieDTO dto = new MovieDTO(entity, entity.getComments());
         dto.setImageByte(getImageByte(entity.getImage()));
         return dto;
     }

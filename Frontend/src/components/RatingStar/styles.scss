@@ -1,0 +1,11 @@
+.rs-rating {
+  padding-top: 15px;
+  color: var(--color-title-topic);
+  position: relative;
+
+  > div {
+    position: absolute;
+    top: 12px;
+    right: -65px;
+  }
+}

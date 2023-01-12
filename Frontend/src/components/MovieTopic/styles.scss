@@ -1,0 +1,18 @@
+.mt-container {
+  padding-top: 20px;
+
+  .mt-topic-title {
+    color: var(--color-title-topic);
+
+    & span {
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--color-content-topic);
+    }
+  }
+
+  .mt-topic-content {
+    color: var(--color-content-topic);
+    margin-bottom: 20px;
+  }
+}

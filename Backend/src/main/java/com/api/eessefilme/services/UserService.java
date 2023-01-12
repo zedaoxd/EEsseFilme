@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
     public UserDTO findById(Long id) {
         Optional<User> optional = repository.findById(id);
         User entity = optional.orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
-        return new UserDTO(entity);
+        return new UserDTO(entity, entity.getRatings());
     }
 
     @Transactional(readOnly = true)

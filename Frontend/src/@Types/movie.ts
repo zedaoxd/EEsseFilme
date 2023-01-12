@@ -1,3 +1,4 @@
+import Comment from "./comment";
 import Genre from "./genre";
 
 type Movie = {
@@ -12,7 +13,7 @@ type Movie = {
   averageRating: number;
   movieTrailer: string;
   imageByte: number[];
-  comments: [];
+  comments: Comment[];
   genres: Genre[];
 };
 
