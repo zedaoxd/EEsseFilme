@@ -6,22 +6,22 @@ import Genre from "../../@Types/genre";
 import { getAllGenres } from "../../services/api/genre";
 import "./styles.scss";
 
-export type FilterMovieData = {
+export type MovieFilterData = {
   originalTitle: string;
   genre: Genre | undefined;
 };
 
 type Props = {
-  onSubmitFilter: (data: FilterMovieData) => void;
+  onSubmitFilter: (data: MovieFilterData) => void;
 };
 
-const FilterMovie = ({ onSubmitFilter }: Props) => {
+const MovieFilter = ({ onSubmitFilter }: Props) => {
   const { register, handleSubmit, control, setValue, getValues } =
-    useForm<FilterMovieData>();
+    useForm<MovieFilterData>();
 
   const { data } = useQuery<Genre[]>(["getAllGenres"], getAllGenres);
 
-  const onSubmit = (formData: FilterMovieData) => {
+  const onSubmit = (formData: MovieFilterData) => {
     onSubmitFilter(formData);
   };
 
@@ -43,6 +43,9 @@ const FilterMovie = ({ onSubmitFilter }: Props) => {
           placeholder="Nome do Filme"
           name="originalTitle"
         />
+        <button type="submit">
+          <SearchIcon className="icon-search-movie" />
+        </button>
 
         <Controller
           name="genre"
@@ -60,12 +63,9 @@ const FilterMovie = ({ onSubmitFilter }: Props) => {
             />
           )}
         />
-        <button type="button">
-          <SearchIcon className="icon-search-movie" />
-        </button>
       </form>
     </div>
   );
 };
 
-export default FilterMovie;
+export default MovieFilter;

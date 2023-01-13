@@ -53,8 +53,10 @@ public class MovieService {
     private final String PATH_IMAGE = "./src/main/resources/images/";
 
     @Transactional(readOnly = true)
-    public Page<MovieDTO> findAll(Pageable pageable){
-        var page = repository.findAll(pageable).map(x -> new MovieDTO(x, true));
+    public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle){
+        //var page = repository.findAll(pageable).map(x -> new MovieDTO(x, true));
+        List<Genre> categories = genreId == 0 ? null : List.of(genreRepository.getReferenceById(genreId));
+        var page = repository.find(categories, originalTitle, pageable).map(x -> new MovieDTO(x, true));
         for(MovieDTO m: page){
             m.setImageByte(getImageByte(m.getImage()));
         }
