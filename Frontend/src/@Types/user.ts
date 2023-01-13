@@ -1,7 +1,7 @@
 import Comment from "./comment";
 import Rating from "./rating";
 
-export type User = {
+type User = {
   id: number;
   firstName: string;
   lastName: string;
@@ -15,3 +15,5 @@ export type User = {
   comments: Comment[];
   ratings: Rating[];
 };
+
+export default User;

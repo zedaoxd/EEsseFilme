@@ -33,7 +33,13 @@ const MovieTopic = ({
       <p className="mt-topic-content">{new Date(date).toLocaleDateString()}</p>
 
       <h3 className="mt-topic-title">Gênero(s):</h3>
-      <p className="mt-topic-content">{genres[0].name}</p>
+      <p className="mt-topic-content">
+        {genres
+          .reduce((acc, g) => {
+            return (acc += `${g.name}, `);
+          }, "")
+          .slice(0, -2)}
+      </p>
 
       <h3 className="mt-topic-title">Principais atores:</h3>
       <p className="mt-topic-content">{mainActors}</p>

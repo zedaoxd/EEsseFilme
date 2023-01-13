@@ -15,7 +15,7 @@ const MovieDetails = () => {
     api.get<Movie>(`/movies/${id}`).then((response) => setMovie(response.data));
   }, []);
 
-  console.log(movie?.comments[0].user);
+  // console.log(movie?.comments[0].user);
 
   return (
     <main className="md-main-container">
@@ -51,6 +51,7 @@ const MovieDetails = () => {
               pip={false}
               controls={true}
               light={true}
+              style={{ position: "relative", top: "20px" }}
             />
           </div>
         </div>

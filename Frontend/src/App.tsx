@@ -1,7 +1,12 @@
+import ReactQueryContext from "./contexts/reactQueryContext";
 import AppRoutes from "./routes/AppRoutes";
 
 const App = () => {
-  return <AppRoutes />;
+  return (
+    <ReactQueryContext>
+      <AppRoutes />
+    </ReactQueryContext>
+  );
 };
 
 export default App;

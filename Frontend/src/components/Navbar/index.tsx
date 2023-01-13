@@ -14,7 +14,7 @@ const Navbar = () => {
             <HomeIcon /> <span>Página Inicial</span>
           </NavLink>
 
-          <NavLink to={"/movies"}>
+          <NavLink to={"/movie"}>
             <MovieIcon /> <span>Repositório de Filmes</span>
           </NavLink>
 
