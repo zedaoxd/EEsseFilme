@@ -1,0 +1,27 @@
+.movie-repository {
+  width: 100%;
+  height: calc(100vh - 80px);
+
+  > div {
+    width: 1120px;
+    margin: 0 auto;
+
+    > div:nth-child(1) {
+      margin-bottom: 20px;
+    }
+  }
+
+  & .mr-grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  & .mr-pagination-container {
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+  }
+}
