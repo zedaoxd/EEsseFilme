@@ -20,5 +20,8 @@ export const darkTheme = createTheme({
       disabled: "#fff",
       secondary: "#fff",
     },
+    background: {
+      default: "rgb(44, 44, 44)",
+    },
   },
 });

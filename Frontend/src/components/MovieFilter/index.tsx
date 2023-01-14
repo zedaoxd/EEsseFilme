@@ -25,13 +25,12 @@ const MovieFilter = ({ onSubmitFilter }: Props) => {
     onSubmitFilter(formData);
   };
 
-  const handleOnChangeGenre = (value: Genre) => {
-    setValue("genre", value);
-    const obj = {
+  const handleOnChangeGenre = (g: Genre) => {
+    setValue("genre", g);
+    onSubmitFilter({
       originalTitle: getValues("originalTitle"),
       genre: getValues("genre"),
-    };
-    onSubmitFilter(obj);
+    });
   };
 
   return (

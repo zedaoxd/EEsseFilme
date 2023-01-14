@@ -24,7 +24,7 @@ const MovieRepository = () => {
     getMoviesPaged({
       params: {
         page: controlComponentData.activePage,
-        size: 5,
+        size: 10,
         genreId: controlComponentData.filterData.genre?.id,
         originalTitle: controlComponentData.filterData.originalTitle,
       },
@@ -34,17 +34,14 @@ const MovieRepository = () => {
   useEffect(getMovies, [getMovies]);
 
   const handlePageChange = (pageNumber: number) => {
-    setControlComponentData({
+    setControlComponentData((prev) => ({
+      ...prev,
       activePage: pageNumber - 1,
-      filterData: controlComponentData.filterData,
-    });
+    }));
   };
 
   const onSubmitFilter = (filter: MovieFilterData) => {
-    setControlComponentData({
-      activePage: 0,
-      filterData: filter,
-    });
+    setControlComponentData((prev) => ({ ...prev, filterData: filter }));
   };
 
   return (

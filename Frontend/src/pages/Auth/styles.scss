@@ -1,0 +1,11 @@
+.auth-container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  position: absolute;
+  top: 61px;
+  background: url("images/background.jpg") no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
