@@ -4,6 +4,8 @@ import Auth from "../pages/Auth";
 import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import MovieRepository from "../pages/MovieRepository";
+import Profile from "../pages/Profile";
+import PrivateRoutes from "./PrivateRoutes";
 
 const AppRoutes = () => {
   return (
@@ -14,7 +16,10 @@ const AppRoutes = () => {
         <Route path="/movie" element={<MovieRepository />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="*" element={<div>'404'</div>} />
+
+        <Route path="/profile" element={<PrivateRoutes />}>
+          <Route path="" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
