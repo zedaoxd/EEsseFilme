@@ -1,6 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Auth from "../pages/Auth";
+import Login from "../pages/Auth/Login";
+import Signup from "../pages/Auth/Signup";
+import Forbidden from "../pages/Forbidden";
 import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import MovieRepository from "../pages/MovieRepository";
@@ -15,11 +18,19 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/movie" element={<MovieRepository />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
-        <Route path="/auth" element={<Auth />} />
 
-        <Route path="/profile" element={<PrivateRoutes />}>
-          <Route path="" element={<Profile />} />
+        <Route element={<Auth />}>
+          <Route path="/auth" element={<Navigate to="/auth/login" />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/signup" element={<Signup />} />
         </Route>
+
+        <Route element={<PrivateRoutes role={"ROLE_MEMBER"} />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+
+        <Route path="/unauthorized" element={<Forbidden />} />
+        <Route path="*" element={<Forbidden />} />
       </Routes>
     </BrowserRouter>
   );

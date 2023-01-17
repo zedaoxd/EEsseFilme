@@ -4,16 +4,12 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import "./styles.scss";
 
-type Props = {
-  toggleLogin: () => void;
-};
-
 type FormLogin = {
   username: string;
   password: string;
 };
 
-const Login = ({ toggleLogin }: Props) => {
+const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
@@ -53,9 +49,7 @@ const Login = ({ toggleLogin }: Props) => {
           placeholder="Email"
           name="username"
         />
-        <div className="invalid-feedback d-block">
-          {errors.username?.message}
-        </div>
+        <div className="invalid-feedback">{errors.username?.message}</div>
         <input
           {...register("password", {
             required: "Campo obrigatório",
@@ -64,13 +58,11 @@ const Login = ({ toggleLogin }: Props) => {
           placeholder="Password"
           name="password"
         />
-        <div className="invalid-feedback d-block">
-          {errors.password?.message}
-        </div>
+        <div className="invalid-feedback">{errors.password?.message}</div>
         <button type="submit">Entrar</button>
       </form>
       <span>Não tem conta? </span>
-      <button type="button" onClick={toggleLogin}>
+      <button type="button" onClick={() => navigate("/auth/signup")}>
         Cadastre-se
       </button>
     </div>

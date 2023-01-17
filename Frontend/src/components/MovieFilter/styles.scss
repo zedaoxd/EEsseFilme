@@ -4,6 +4,7 @@
   border-radius: 20px;
   padding: 10px 30px;
   display: flex;
+  box-shadow: 3px 3px 10px black;
 
   & form {
     width: 100%;
@@ -24,6 +25,7 @@
 
       &:focus {
         box-shadow: none;
+        outline: none;
         background-color: white;
       }
     }
