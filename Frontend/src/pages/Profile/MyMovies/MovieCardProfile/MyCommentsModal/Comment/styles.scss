@@ -1,0 +1,12 @@
+.commentModal {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(231, 231, 231);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  & svg {
+    cursor: pointer;
+  }
+}

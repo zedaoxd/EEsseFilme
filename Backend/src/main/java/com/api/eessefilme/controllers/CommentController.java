@@ -1,6 +1,7 @@
 package com.api.eessefilme.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -41,6 +42,11 @@ public class CommentController {
     @GetMapping(value = "/user/{userId}")
     public ResponseEntity<Page<CommentDTO>> findByUserId(Pageable pageable, @PathVariable("userId") Long userId){
     	return ResponseEntity.ok(service.findCommentsByUser(pageable, userId));
+    }
+
+    @GetMapping(value = "/user/{userId}/movie/{movieId}")
+    public ResponseEntity<List<CommentDTO>> findByUserIdMovieId(@PathVariable("userId") Long userId, @PathVariable("movieId") Long movieId){
+        return ResponseEntity.ok(service.findCommentsByUserByMovie(movieId, userId));
     }
 
     @PostMapping

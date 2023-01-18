@@ -1,5 +1,6 @@
 package com.api.eessefilme.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -78,4 +79,8 @@ public class CommentService {
             throw new DatabaseException("Integrity violation");
         }
 	}
+
+    public List<CommentDTO> findCommentsByUserByMovie(Long movieId, Long userId) {
+		return repository.findCommentsByUserIdAndMovieId(userId, movieId).stream().map(x -> new CommentDTO(x)).toList();
+    }
 }

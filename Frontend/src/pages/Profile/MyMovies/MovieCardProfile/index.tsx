@@ -1,8 +1,8 @@
 import { Rating } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Movie from "../../../../@Types/movie";
 import { api } from "../../../../services/api/api";
+import MyCommentsModal from "./MyCommentsModal";
 import "./styles.scss";
 
 type Props = {
@@ -12,13 +12,17 @@ type Props = {
 
 const MovieCardProfile = ({ idMovie, rating }: Props) => {
   const [movie, setMovie] = useState<Movie>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     api.get<Movie>(`/movies/${idMovie}`).then((r) => setMovie(r.data));
   }, []);
 
   return (
-    <Link to={`/movie/${idMovie}`} className="MovieCardProfileContainer">
+    <div
+      className="MovieCardProfileContainer"
+      onClick={() => setIsModalOpen((prev) => !prev)}
+    >
       {movie && (
         <img src={`data:image/png;base64, ${movie.imageByte}`} alt="" />
       )}
@@ -30,7 +34,13 @@ const MovieCardProfile = ({ idMovie, rating }: Props) => {
           value={rating}
         />
       </div>
-    </Link>
+      <MyCommentsModal
+        isOpen={isModalOpen}
+        rating={rating}
+        idMovie={idMovie}
+        originalTitle={movie?.originTitle}
+      />
+    </div>
   );
 };
 

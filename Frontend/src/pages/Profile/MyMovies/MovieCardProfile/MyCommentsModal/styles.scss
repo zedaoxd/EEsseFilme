@@ -1,0 +1,21 @@
+.modalRatingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  & label {
+    margin-right: 10px;
+  }
+
+  & span {
+    margin-top: 8px;
+  }
+}
+
+.modalCommentsContainer {
+  margin-top: 20px;
+
+  & h2 {
+    margin-bottom: 10px;
+  }
+}
