@@ -20,9 +20,6 @@ const MyCommentsModal = ({ isOpen, rating, idMovie, originalTitle }: Props) => {
   const { data } = useQuery([`comments, ${idMovie}, ${user?.id}`], () =>
     getCommentsByUserIdAndMovieId(user?.id || 0, idMovie)
   );
-
-  console.log(data);
-
   return (
     <Modal
       isOpen={isOpen}
