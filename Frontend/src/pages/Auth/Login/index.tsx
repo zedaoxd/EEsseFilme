@@ -10,7 +10,7 @@ type FormLogin = {
 };
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
   const {

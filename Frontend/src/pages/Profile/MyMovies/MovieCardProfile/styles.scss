@@ -1,0 +1,24 @@
+.MovieCardProfileContainer {
+  width: 200px;
+  height: 300px;
+  position: relative;
+  box-shadow: 4px 4px 4px black;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  & .starContainer {
+    width: 100%;
+    height: 40px;
+    background-color: rgba(117, 117, 117, 0.88);
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

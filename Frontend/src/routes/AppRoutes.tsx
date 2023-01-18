@@ -8,6 +8,7 @@ import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import MovieRepository from "../pages/MovieRepository";
 import Profile from "../pages/Profile";
+import MyMovies from "../pages/Profile/MyMovies";
 import PrivateRoutes from "./PrivateRoutes";
 
 const AppRoutes = () => {
@@ -26,7 +27,13 @@ const AppRoutes = () => {
         </Route>
 
         <Route element={<PrivateRoutes role={"ROLE_MEMBER"} />}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />}>
+            <Route
+              path="/profile"
+              element={<Navigate to="/profile/movies" />}
+            />
+            <Route path="/profile/movies" element={<MyMovies />} />
+          </Route>
         </Route>
 
         <Route path="/unauthorized" element={<Forbidden />} />

@@ -1,5 +1,6 @@
 package com.api.eessefilme.services;
 
+import com.api.eessefilme.dto.MovieDTO;
 import com.api.eessefilme.dto.RatingDTO;
 import com.api.eessefilme.entities.Movie;
 import com.api.eessefilme.entities.Rating;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service

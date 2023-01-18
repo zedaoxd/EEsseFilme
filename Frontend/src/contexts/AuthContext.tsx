@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import Role from "../@Types/role";
 import User from "../@Types/user";
 import { api } from "../services/api/api";
@@ -93,6 +93,18 @@ export const AuthContextProvider = ({ children }: Props) => {
       return tokenData.exp * 1_000 > Date.now() ? true : false;
     } catch {
       return false;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (getLoginResponse()) {
+      api
+        .get<User>("/users/profile", {
+          headers: {
+            Authorization: "Bearer " + getLoginResponse()?.access_token,
+          },
+        })
+        .then((r) => setUser(r.data));
     }
   }, []);
 

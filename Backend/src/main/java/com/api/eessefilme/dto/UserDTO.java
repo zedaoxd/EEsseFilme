@@ -35,7 +35,7 @@ public class UserDTO {
     
     private List<CommentDTO> comments = new ArrayList<>();
 
-    private List<RatingDTO> ratings = new ArrayList<>();
+    private Set<RatingDTO> ratings = new HashSet<>();
 
     public UserDTO(User entity) {
         this.id = entity.getId();
