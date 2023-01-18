@@ -74,6 +74,10 @@ public class UserService implements UserDetailsService {
         try {
             User entity = repository.getReferenceById(id);
             convertDtoToEntity(dto, entity);
+            System.out.println("senha que esta vindo: " + dto.getPassword());
+            if (dto.getPassword() != null && !entity.getPassword().equals(dto.getPassword())) {
+                entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+            }
             entity = repository.save(entity);
             return new UserDTO(entity);
         } catch (EntityNotFoundException e) {
