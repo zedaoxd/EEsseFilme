@@ -1,6 +1,7 @@
 package com.api.eessefilme.controllers.exceptions;
 
 import com.api.eessefilme.services.exceptions.DatabaseException;
+import com.api.eessefilme.services.exceptions.NotAcceptableException;
 import com.api.eessefilme.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,18 @@ public class ResourceExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Resource not found");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(NotAcceptableException.class)
+    public ResponseEntity<StandardError> notAcceptableException(NotAcceptableException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Incorrect old password");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

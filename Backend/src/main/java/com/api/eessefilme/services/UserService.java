@@ -10,6 +10,7 @@ import com.api.eessefilme.repositories.CommentRepository;
 import com.api.eessefilme.repositories.RoleRepository;
 import com.api.eessefilme.repositories.UserRepository;
 import com.api.eessefilme.services.exceptions.DatabaseException;
+import com.api.eessefilme.services.exceptions.NotAcceptableException;
 import com.api.eessefilme.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -74,10 +75,14 @@ public class UserService implements UserDetailsService {
         try {
             User entity = repository.getReferenceById(id);
             convertDtoToEntity(dto, entity);
-            System.out.println("senha que esta vindo: " + dto.getPassword());
-            if (dto.getPassword() != null && !entity.getPassword().equals(dto.getPassword())) {
-                entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-            }
+
+            if (dto.getOldPassword() != null && dto.getNewPassword() != null )
+                if(passwordEncoder.matches(dto.getOldPassword(), entity.getPassword())) {
+                    entity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+                } else {
+                    throw new NotAcceptableException("old password invalid");
+                }
+
             entity = repository.save(entity);
             return new UserDTO(entity);
         } catch (EntityNotFoundException e) {

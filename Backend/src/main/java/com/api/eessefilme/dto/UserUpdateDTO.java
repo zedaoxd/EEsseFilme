@@ -15,10 +15,9 @@ import java.util.Set;
 public class UserUpdateDTO extends UserDTO {
 
     @Size(min = 8, max = 16, message = "the length must be between 8 and 16 characters")
-    private String password;
+    private String oldPassword;
 
-    public UserUpdateDTO(Long id, String firstName, String lastName, String email, Set<RoleDTO> roles, String password) {
-        super(id, firstName, lastName, email, roles, new ArrayList<>(), new HashSet<>());
-        this.password = password;
-    }
+    @Size(min = 8, max = 16, message = "the length must be between 8 and 16 characters")
+    private String newPassword;
+
 }
