@@ -3,7 +3,8 @@ import Navbar from "../components/Navbar";
 import Auth from "../pages/Auth";
 import Login from "../pages/Auth/Login";
 import Signup from "../pages/Auth/Signup";
-import Forbidden from "../pages/Forbidden";
+import Forbidden from "../pages/Err/Forbidden";
+import NotFound from "../pages/Err/NotFound";
 import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import MovieRepository from "../pages/MovieRepository";
@@ -39,7 +40,7 @@ const AppRoutes = () => {
         </Route>
 
         <Route path="/unauthorized" element={<Forbidden />} />
-        <Route path="*" element={<Forbidden />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

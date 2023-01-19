@@ -2,11 +2,11 @@
   position: absolute;
   top: 60px;
   width: 100%;
+  // height: calc(100vh - 60px);
   // border-top: 10px solid #4d4d4d;
 
   > div {
     // width: 1120px;
-    height: calc(100vh - 60px);
     margin: 0 auto;
     display: flex;
 
@@ -15,15 +15,39 @@
       flex-direction: row;
 
       > nav {
-        // border-top: 1px solid white;
         width: 300px;
         display: flex;
         box-shadow: 3px 3px 3px black;
         flex-direction: column;
+        justify-content: space-between;
         background-color: #202020;
-        height: calc(100vh - 60px);
+        height: calc(100vh - 65px);
 
-        a {
+        > div {
+          & .profileMenuLogoContainer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            & img {
+              width: 100px;
+            }
+          }
+        }
+
+        & h3 {
+          padding: 10px 20px 10px 10px;
+          color: lightblue;
+          display: flex;
+          width: 100%;
+          border-bottom: 1px solid lightblue;
+
+          svg {
+            margin-right: 10px;
+          }
+        }
+
+        & a {
           color: white;
           border-bottom: 1px solid white;
           padding: 10px;
@@ -38,13 +62,26 @@
             color: red;
           }
         }
+
+        .buttonLogoutContainer {
+          & a {
+            border: none;
+            color: rgb(240, 173, 73);
+            border-top: 1px solid rgb(240, 173, 73);
+            padding-bottom: 20px;
+          }
+        }
+
+        .gerenciaContainerOptions {
+          h3 {
+            padding-top: 40px;
+          }
+        }
       }
     }
 
     & .profile-content {
-      // flex: 1;
       width: 1120px;
-      // margin: 0 auto;
     }
   }
 }

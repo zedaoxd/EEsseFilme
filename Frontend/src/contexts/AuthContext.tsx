@@ -18,6 +18,7 @@ type AuthContextType = {
   user: User | undefined;
   getLoginResponse: () => LoginResponse | undefined;
   setUser: (value: React.SetStateAction<User | undefined>) => void;
+  hasRole: (role: string) => boolean | undefined;
 };
 
 type Props = {
@@ -110,6 +111,10 @@ export const AuthContextProvider = ({ children }: Props) => {
     }
   }, []);
 
+  const hasRole = (role: string) => {
+    return user?.roles.some((r) => r.name === role);
+  };
+
   const getLoginResponse = () => {
     try {
       const str = localStorage.getItem(TOKEN_KEY) as string;
@@ -128,6 +133,7 @@ export const AuthContextProvider = ({ children }: Props) => {
         user,
         getLoginResponse,
         setUser,
+        hasRole,
       }}
     >
       {children}

@@ -6,12 +6,12 @@ type Props = {
 };
 
 const PrivateRoutes = ({ role }: Props) => {
-  const { user } = useAuth();
+  const { isAuthenticated, hasRole } = useAuth();
   const location = useLocation();
 
-  return user?.roles.some((r) => r.name === role) ? (
+  return hasRole(role) ? (
     <Outlet />
-  ) : user ? (
+  ) : isAuthenticated() ? (
     <Navigate to="/unauthorized" replace state={{ from: location }} />
   ) : (
     <Navigate to="/auth" replace state={{ from: location }} />
