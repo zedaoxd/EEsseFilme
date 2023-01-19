@@ -1,0 +1,27 @@
+.genreCardContainer {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgb(204, 204, 204);
+  color: rgb(94, 52, 52);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 3px 3px 3px black;
+
+  & .genreCardButtonsContainer {
+    & button:nth-child(1) {
+      & svg {
+        color: darkorange;
+      }
+    }
+
+    & button:nth-child(2) {
+      & svg {
+        color: red;
+      }
+    }
+  }
+}

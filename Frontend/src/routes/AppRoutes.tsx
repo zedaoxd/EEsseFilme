@@ -9,6 +9,9 @@ import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import MovieRepository from "../pages/MovieRepository";
 import Profile from "../pages/Profile";
+import ManageGenres from "../pages/Profile/Admin/ManageGenres";
+import ManageMovies from "../pages/Profile/Admin/ManageMovies";
+import ManageUsers from "../pages/Profile/Admin/ManageUsers";
 import MyData from "../pages/Profile/MyData";
 import MyMovies from "../pages/Profile/MyMovies";
 import PrivateRoutes from "./PrivateRoutes";
@@ -36,6 +39,14 @@ const AppRoutes = () => {
             />
             <Route path="/profile/movies" element={<MyMovies />} />
             <Route path="/profile/settings" element={<MyData />} />
+          </Route>
+        </Route>
+
+        <Route element={<PrivateRoutes role={"ROLE_ADMIN"} />}>
+          <Route path="/profile" element={<Profile />}>
+            <Route path="/profile/admin/genres" element={<ManageGenres />} />
+            <Route path="/profile/admin/movies" element={<ManageMovies />} />
+            <Route path="/profile/admin/users" element={<ManageUsers />} />
           </Route>
         </Route>
 
