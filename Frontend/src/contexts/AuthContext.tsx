@@ -16,6 +16,8 @@ type AuthContextType = {
   isAuthenticated: () => boolean;
   logout: () => void;
   user: User | undefined;
+  getLoginResponse: () => LoginResponse | undefined;
+  setUser: (value: React.SetStateAction<User | undefined>) => void;
 };
 
 type Props = {
@@ -56,7 +58,7 @@ export const AuthContextProvider = ({ children }: Props) => {
       grant_type: "password",
     });
 
-    return await axios<LoginResponse>({
+    return await axios({
       method: "POST",
       baseURL: "http://localhost:8080",
       url: "/oauth/token",
@@ -118,7 +120,16 @@ export const AuthContextProvider = ({ children }: Props) => {
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, isAuthenticated, user }}>
+    <AuthContext.Provider
+      value={{
+        login,
+        logout,
+        isAuthenticated,
+        user,
+        getLoginResponse,
+        setUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

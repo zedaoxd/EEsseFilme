@@ -16,7 +16,7 @@ const Profile = () => {
             <NavLink to="/profile/movies">
               <MovieFilterIcon /> Meus Filmes Avaliados
             </NavLink>
-            <NavLink to="/">
+            <NavLink to="/profile/settings">
               <SettingsIcon /> Alterar Dados Pessoais
             </NavLink>
             <Link to="/" onClick={logout}>

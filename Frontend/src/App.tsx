@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import Modal from "react-modal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import ReactQueryContext from "./contexts/reactQueryContext";
 import AppRoutes from "./routes/AppRoutes";
@@ -13,6 +15,7 @@ const App = () => {
       <ReactQueryContext>
         <AuthContextProvider>
           <AppRoutes />
+          <ToastContainer />
         </AuthContextProvider>
       </ReactQueryContext>
     </ThemeProvider>

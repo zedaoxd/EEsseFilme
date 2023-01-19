@@ -8,6 +8,7 @@ import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import MovieRepository from "../pages/MovieRepository";
 import Profile from "../pages/Profile";
+import MyData from "../pages/Profile/MyData";
 import MyMovies from "../pages/Profile/MyMovies";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -33,6 +34,7 @@ const AppRoutes = () => {
               element={<Navigate to="/profile/movies" />}
             />
             <Route path="/profile/movies" element={<MyMovies />} />
+            <Route path="/profile/settings" element={<MyData />} />
           </Route>
         </Route>
 

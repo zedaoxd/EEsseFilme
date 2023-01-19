@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDTO getProfile() {
         User entity = authService.authenticated();
-        return new UserDTO(entity, entity.getRatings(),entity.getComments());
+        return new UserDTO(entity);
     }
 
     @Transactional
