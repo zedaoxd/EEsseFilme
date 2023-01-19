@@ -1,6 +1,6 @@
 import LogoutIcon from "@mui/icons-material/Logout";
 import MovieFilterIcon from "@mui/icons-material/MovieFilter";
-import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./styles.scss";
@@ -17,7 +17,7 @@ const Profile = () => {
               <MovieFilterIcon /> Meus Filmes Avaliados
             </NavLink>
             <NavLink to="/">
-              <PersonIcon /> Alterar Dados Pessoais
+              <SettingsIcon /> Alterar Dados Pessoais
             </NavLink>
             <Link to="/" onClick={logout}>
               <LogoutIcon /> Sair

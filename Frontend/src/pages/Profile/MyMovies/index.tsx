@@ -30,12 +30,19 @@ const MyMovies = () => {
         ))}
       </div>
       <div className="myMoviesPaginationContainer">
-        {data && (
+        {data && data.content.length !== 0 ? (
           <Pagination
             onChange={onChange}
             page={pageNumber}
             pageCount={data.totalPages}
           />
+        ) : (
+          <>
+            <div className="noHasMovies">
+              <h1>Você ainda não avaliou nenhum filme :(</h1>
+              <img src="/images/sad.png" alt="" />
+            </div>
+          </>
         )}
       </div>
     </>
