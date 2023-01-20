@@ -3,15 +3,25 @@ import { useState } from "react";
 import Pagination from "../../../components/Pagination";
 import useAuth from "../../../hooks/useAuth";
 import { getRatingsPagedByUser } from "../../../services/api/ratings";
+import { getCurrentUser } from "../../../services/api/user";
 import MovieCardProfile from "./MovieCardProfile";
 import "./styles.scss";
 
 const MyMovies = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [pageNumber, setPageNumber] = useState<number>(0);
 
-  const { data, isLoading } = useQuery([`getRatings, ${pageNumber}`], () =>
-    getRatingsPagedByUser(user?.id || 0, pageNumber)
+  const { data, isLoading } = useQuery(
+    [`getRatings, ${pageNumber}`],
+    async () => {
+      if (user) {
+        return await getRatingsPagedByUser(user.id, pageNumber);
+      } else {
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+        return await getRatingsPagedByUser(currentUser.id, pageNumber);
+      }
+    }
   );
 
   const onChange = (value: number) => {

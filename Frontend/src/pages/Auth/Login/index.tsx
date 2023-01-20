@@ -23,7 +23,7 @@ const Login = () => {
   const onSubmit = (formLogin: FormLogin) => {
     login(formLogin)
       .then(() => navigate("/profile"))
-      .catch(() => {
+      .catch((e) => {
         setHasError(true);
         setValue("password", "");
         setValue("username", "");

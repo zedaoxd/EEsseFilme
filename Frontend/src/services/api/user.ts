@@ -1,14 +1,17 @@
-import { AxiosRequestConfig } from "axios";
+import User from "../../@Types/user";
+import { getToken } from "../../utils/storage";
 import { api } from "./api";
 
-export const updateUser = async (config: AxiosRequestConfig, token: string) => {
-  return api({
-    ...config,
-    method: "PUT",
-    url: `/users/${config.data?.id}`,
-    headers: {
-      ...config.headers,
-      Authorization: "Bearer " + token,
-    },
-  });
+export const updateUser = async (data: User) => {
+  return api.put(`/users/${data.id}`, data);
+};
+
+export const getCurrentUser = async () => {
+  return await api
+    .get<User>("/users/profile", {
+      headers: {
+        Authorization: "Bearer " + getToken(),
+      },
+    })
+    .then((r) => r.data);
 };

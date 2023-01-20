@@ -17,13 +17,14 @@ type FormData = {
 };
 
 const MyData = () => {
-  const { user, getLoginResponse, setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
     watch,
+    reset,
   } = useForm<FormData>();
 
   useEffect(() => {
@@ -36,10 +37,11 @@ const MyData = () => {
     watch("newPassword") !== value ? "As senhas não são iguais!" : true;
 
   const { mutate } = useMutation(async (data: User) => {
-    return await updateUser({ data }, getLoginResponse()?.access_token || "")
+    return await updateUser(data)
       .then((r) => {
         setUser(r.data);
         toast.success("Alterado");
+        reset();
       })
       .catch((e) => {
         if (e.response.status === 406) {

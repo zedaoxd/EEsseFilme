@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import Genre from "../../../../../@Types/genre";
-import useAuth from "../../../../../hooks/useAuth";
 import { saveGenre, updateGenre } from "../../../../../services/api/genre";
 import "./styles.scss";
 
@@ -23,7 +22,6 @@ type FormData = {
 const GenreModal = ({ isOpen, genre, onClose }: Props) => {
   const { register, handleSubmit, setValue } = useForm<FormData>();
   const client = useQueryClient();
-  const { getLoginResponse } = useAuth();
 
   useEffect(() => {
     setValue("name", genre?.name || "");
@@ -32,12 +30,8 @@ const GenreModal = ({ isOpen, genre, onClose }: Props) => {
   const { mutate } = useMutation(
     async (data: FormData) => {
       genre
-        ? await updateGenre(
-            { data },
-            genre.id,
-            getLoginResponse()?.access_token || ""
-          )
-        : await saveGenre({ data }, getLoginResponse()?.access_token || "");
+        ? await updateGenre(data as Genre, genre.id)
+        : await saveGenre(data as Genre);
     },
     { onSuccess: () => client.invalidateQueries(["getAllGenresManager"]) }
   );

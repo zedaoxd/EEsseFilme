@@ -5,6 +5,8 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import Role from "../@Types/role";
 import User from "../@Types/user";
 import { api } from "../services/api/api";
+import { getCurrentUser } from "../services/api/user";
+import { getToken } from "../utils/storage";
 
 type UserLogin = {
   username: string;
@@ -16,21 +18,12 @@ type AuthContextType = {
   isAuthenticated: () => boolean;
   logout: () => void;
   user: User | undefined;
-  getLoginResponse: () => LoginResponse | undefined;
   setUser: (value: React.SetStateAction<User | undefined>) => void;
   hasRole: (role: string) => boolean | undefined;
 };
 
 type Props = {
   children: React.ReactNode;
-};
-
-type LoginResponse = {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  scope: string;
-  jti: string;
 };
 
 type TokenData = {
@@ -72,14 +65,10 @@ export const AuthContextProvider = ({ children }: Props) => {
     await requestBackendLogin(userLogin).then((r) =>
       localStorage.setItem(TOKEN_KEY, JSON.stringify(r.data))
     );
-
-    return api
-      .get<User>("/users/profile", {
-        headers: {
-          Authorization: "Bearer " + getLoginResponse()?.access_token,
-        },
-      })
-      .then((r) => setUser(r.data));
+    const token = getToken();
+    api.defaults.headers.common["Authorization"] =
+      token && "Bearer " + getToken();
+    return await getCurrentUser().then((r) => setUser(r));
   }, []);
 
   const logout = useCallback(() => {
@@ -89,10 +78,10 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   const isAuthenticated = useCallback(() => {
     try {
-      const loginResponse = getLoginResponse();
-      if (!loginResponse) return false;
+      const token = getToken();
+      if (!token) return false;
 
-      const tokenData = jwtDecode(loginResponse.access_token) as TokenData;
+      const tokenData = jwtDecode(token) as TokenData;
       return tokenData.exp * 1_000 > Date.now() ? true : false;
     } catch {
       return false;
@@ -100,28 +89,11 @@ export const AuthContextProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (getLoginResponse()) {
-      api
-        .get<User>("/users/profile", {
-          headers: {
-            Authorization: "Bearer " + getLoginResponse()?.access_token,
-          },
-        })
-        .then((r) => setUser(r.data));
-    }
+    getCurrentUser().then((r) => setUser(r));
   }, []);
 
   const hasRole = (role: string) => {
     return user?.roles.some((r) => r.name === role);
-  };
-
-  const getLoginResponse = () => {
-    try {
-      const str = localStorage.getItem(TOKEN_KEY) as string;
-      return JSON.parse(str) as LoginResponse;
-    } catch {
-      return undefined;
-    }
   };
 
   return (
@@ -131,7 +103,6 @@ export const AuthContextProvider = ({ children }: Props) => {
         logout,
         isAuthenticated,
         user,
-        getLoginResponse,
         setUser,
         hasRole,
       }}
