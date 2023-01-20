@@ -1,0 +1,48 @@
+.genreModalForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+
+  & form {
+    width: 100%;
+
+    & input {
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      display: block;
+      width: 90%;
+      font-size: 20px;
+      margin: 10px 0;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    & button {
+      background: rgb(58, 58, 209);
+      padding: 5px 15px;
+      border-radius: 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: filter 0.2s;
+      box-shadow: 3px 3px 3px black;
+
+      & svg {
+        margin-right: 10px;
+      }
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+  }
+}
