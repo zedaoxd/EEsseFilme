@@ -1,0 +1,44 @@
+.userCardContainer {
+  background-color: #e7e7e7;
+  color: rgb(138, 37, 37);
+  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .userCardButtonsContainer {
+    & a:nth-child(1) {
+      & svg {
+        color: darkorange;
+      }
+    }
+
+    & button:nth-child(2) {
+      & svg {
+        color: red;
+      }
+    }
+  }
+
+  & .userCardContentContainer {
+    display: flex;
+    width: 500px;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    & h3 {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    & p {
+      font-size: 18px;
+    }
+
+    & .userCardRoles {
+      display: flex;
+    }
+  }
+}

@@ -57,6 +57,11 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
+    public Page<UserDTO> findAllByEmail(String email, Pageable pageable) {
+        return repository.findAllByEmailContainingIgnoreCase(email, pageable).map(x -> new UserDTO(x));
+    }
+
+    @Transactional(readOnly = true)
     public UserDTO getProfile() {
         User entity = authService.authenticated();
         return new UserDTO(entity);

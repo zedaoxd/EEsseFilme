@@ -3,10 +3,35 @@ INSERT INTO tb_role (name) VALUES ('ROLE_MEMBER');
 
 INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Joao', 'Silva','joao@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
 INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Maria', 'Joaquina','maria@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Bruno', 'Lessa','bruno@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Alef', 'Ligieiro','alef@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Thiago', 'Antunes','thiago@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Fabio', 'Junior','fabio@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Raphael', 'Souza','rapahel@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Jessica', 'Silva','jessica@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Roberta', 'Marques','roberta@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Anderson', 'Ferraz','anderson@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Claudia', 'Oliveira','claudia@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Marcos', 'Moreira','marcos@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Bianca', 'Cardoso','bianca@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
+INSERT INTO tb_user (first_Name, last_Name, email, password) VALUES ('Rogerio', 'Garcia','rogerio@gmail.com','$2a$10$m4iHP.TxD/F6E3y5WKGcSu4OAQ7MDbO6vb3eWspQCMu0FbaOeATWe');
 
 INSERT INTO tb_user_role(user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role(user_id, role_id) VALUES (1, 2);
 INSERT INTO tb_user_role(user_id, role_id) VALUES (2, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (3, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (4, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (5, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (6, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (7, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (8, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (9, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (10, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (11, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (12, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (13, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (14, 2);
+
 
 INSERT INTO tb_genre(name) VALUES ('Ficção');
 INSERT INTO tb_genre(name) VALUES ('Terror');

@@ -2,18 +2,18 @@ import { Pagination, Stack } from "@mui/material";
 
 type Props = {
   pageCount: number;
-  range?: number;
   onChange: (pageNumber: number) => void;
   page: number;
+  color?: "primary" | "secondary" | "standard";
 };
 
-const AppPagination = ({ pageCount, range, onChange, page }: Props) => {
+const AppPagination = ({ pageCount, color, onChange, page }: Props) => {
   return (
     <Stack spacing={2}>
       <Pagination
         count={pageCount}
         variant="outlined"
-        color="primary"
+        color={color || "primary"}
         page={page + 1}
         onChange={(event, number) => onChange(number)}
       />

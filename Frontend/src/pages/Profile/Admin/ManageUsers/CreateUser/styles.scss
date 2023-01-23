@@ -1,0 +1,80 @@
+.createUserMainContainer {
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  border-radius: 10px;
+  padding: 30px;
+  color: white;
+  box-shadow: 3px 3px 3px black;
+
+  & h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  & .createUserFormContainer {
+    width: 100%;
+
+    & form {
+      width: 60%;
+      margin: 0 auto;
+      position: relative;
+
+      & .createUserSelect__menu {
+        color: rgb(104, 104, 104);
+      }
+
+      & .createUserSelect__control {
+        margin-bottom: 10px;
+      }
+
+      & .createUserSelect__control--is-focused {
+        box-shadow: none;
+        outline: 0;
+      }
+
+      & .createUserFormContainerNameAndLastame {
+        display: flex;
+
+        & div {
+          width: 50%;
+        }
+
+        & .createUserFormInputName {
+          margin-right: 10px;
+        }
+      }
+
+      & input,
+      select {
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding-left: 10px;
+
+        &:focus {
+          outline: 0;
+        }
+      }
+
+      & button {
+        background: blue;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        color: white;
+        width: 150px;
+        position: absolute;
+        right: 0;
+        transition: all 0.2s;
+
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+    }
+  }
+}

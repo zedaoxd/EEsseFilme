@@ -11,6 +11,7 @@ export const getTop10date = () => {
   return api.get<Movie[]>("/movies/top10date").then((r) => r.data);
 };
 
-export const getMoviesPaged = (options?: AxiosRequestConfig) => {
-  return api.get<Page<Movie>>("/movies", options).then((r) => r.data);
+export const getMoviesPaged = async (options?: AxiosRequestConfig) => {
+  const r = await api.get<Page<Movie>>("/movies", options);
+  return r.data;
 };

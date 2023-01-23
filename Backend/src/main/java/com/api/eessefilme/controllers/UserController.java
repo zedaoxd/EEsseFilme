@@ -31,6 +31,11 @@ public class UserController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<UserDTO>> pagedUserByEmail(Pageable pageable, @RequestParam("email") String email) {
+        return ResponseEntity.ok(service.findAllByEmail(email, pageable));
+    }
+
     @GetMapping(value = "/profile")
     public ResponseEntity<UserDTO> findProfile() {
         return ResponseEntity.ok(service.getProfile());
