@@ -56,7 +56,10 @@ INSERT INTO tb_movie (origin_Title, national_Title, image, release_Date, synopsi
 
 
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (1, 1);
+INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (1, 2);
+INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (1, 3);
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (2, 1);
+INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (2, 2);
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (3, 2);
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (4, 3);
 INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (5, 1);

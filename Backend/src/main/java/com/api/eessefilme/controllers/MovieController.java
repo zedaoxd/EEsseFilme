@@ -53,7 +53,7 @@ public class MovieController {
     }
 
     @PostMapping(value = "/image")
-    public ResponseEntity<String> saveImage(MultipartFile file)  {
+    public ResponseEntity<String> saveImage(@RequestParam("file") MultipartFile file)  {
         return ResponseEntity.ok(service.saveImage(file));
     }
 

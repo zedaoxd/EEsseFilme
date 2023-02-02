@@ -1,3 +1,5 @@
+import AddIcon from "@mui/icons-material/Add";
+import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -160,9 +162,7 @@ const CreateUser = () => {
                   message: "deve ter menos que 16 caracteres",
                 },
                 validate: (value: string) =>
-                  watch("password") !== value
-                    ? "As senhas não são iguais!"
-                    : true,
+                  watch("password") === value || "As senhas não são iguais!",
               })}
               disabled={!isCreate}
               type="password"
@@ -177,7 +177,19 @@ const CreateUser = () => {
           {isLoading ? (
             <SpinnerDotted />
           ) : (
-            <button type="submit">{isCreate ? "Salvar" : "Editar"}</button>
+            <button type="submit">
+              {isCreate ? (
+                <>
+                  <AddIcon />
+                  Salvar
+                </>
+              ) : (
+                <>
+                  <SystemUpdateAltIcon />
+                  Editar
+                </>
+              )}
+            </button>
           )}
         </form>
       </div>

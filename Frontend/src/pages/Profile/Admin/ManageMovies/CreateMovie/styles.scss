@@ -1,0 +1,132 @@
+.manageMoviesContainer {
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  border-radius: 10px;
+  padding: 30px;
+  color: white;
+  box-shadow: 3px 3px 3px black;
+
+  & h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 40px;
+  }
+
+  & form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    position: relative;
+
+    & .halfForm {
+      width: 50%;
+
+      & .manageMoviesDateAndParentalRatingContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 10px 0;
+
+        & input {
+          margin: 0;
+        }
+      }
+    }
+
+    & input {
+      width: 100%;
+      height: 30px;
+      border-radius: 10px;
+      padding: 0px 10px;
+      font-size: 16px;
+      border: none;
+
+      & + input {
+        margin-top: 10px;
+      }
+
+      &::placeholder {
+        font-size: 16px;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+
+    & textarea {
+      width: 100% !important;
+      height: 150px !important;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border: none;
+      resize: none;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+
+    & label {
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s ease-in-out;
+      border: 1px solid white;
+      padding: 10px;
+      border-radius: 10px;
+
+      &:hover {
+        border-color: rgb(236, 191, 41);
+        color: rgb(236, 191, 41);
+      }
+    }
+
+    & small {
+      display: block;
+      margin-top: 20px;
+      & strong {
+        color: darkred;
+      }
+    }
+
+    & button {
+      position: absolute;
+      right: 0;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s ease-in-out;
+      border: 1px solid white;
+      padding: 10px;
+      border-radius: 10px;
+
+      &:hover {
+        border-color: rgb(7, 223, 7);
+        color: rgb(7, 223, 7);
+      }
+    }
+  }
+}
+
+.manageMoviesSelect__menu {
+  color: rgb(104, 104, 104);
+}
+
+.manageMoviesSelect__control {
+  margin: 10px 0;
+}
+
+.manageMoviesSelect__control--is-focused {
+  box-shadow: none;
+  outline: 0;
+}

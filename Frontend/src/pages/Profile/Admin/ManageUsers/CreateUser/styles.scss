@@ -61,7 +61,7 @@
       }
 
       & button {
-        background: blue;
+        background: darkred;
         padding: 10px;
         border-radius: 10px;
         font-weight: 700;
@@ -70,6 +70,9 @@
         position: absolute;
         right: 0;
         transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
           filter: brightness(0.8);

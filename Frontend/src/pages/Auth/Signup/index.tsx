@@ -94,7 +94,7 @@ const Signup = () => {
               message: "deve ter menos que 16 caracteres",
             },
             validate: (value: string) =>
-              watch("password") !== value ? "As senhas não são iguais!" : true,
+              watch("password") === value || "As senhas não são iguais!",
           })}
           type="password"
           placeholder="Repita sua senha"

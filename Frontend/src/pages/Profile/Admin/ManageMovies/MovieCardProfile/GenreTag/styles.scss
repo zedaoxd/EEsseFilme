@@ -1,0 +1,11 @@
+.gt-container {
+  color: white;
+  background: red;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 7px;
+
+  & + .gt-container {
+    margin-left: 10px;
+  }
+}

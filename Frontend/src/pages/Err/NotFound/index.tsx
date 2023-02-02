@@ -19,7 +19,7 @@ const NotFound = () => {
   return (
     <div className="notfoundContainer">
       <div className="notfoundImagecontainer">
-        <img src="./images/404notfound.svg" alt="" />
+        <img src="public\images\404notfound.svg" alt="" />
       </div>
       <div className="notfoundContentContainer">
         <h1>

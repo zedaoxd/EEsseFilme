@@ -15,3 +15,7 @@ export const getMoviesPaged = async (options?: AxiosRequestConfig) => {
   const r = await api.get<Page<Movie>>("/movies", options);
   return r.data;
 };
+
+export const deleteById = async (id: number) => {
+  return api.delete<void>(`/movies/${id}`);
+};
