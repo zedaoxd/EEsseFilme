@@ -57,7 +57,7 @@ public class ResourceExceptionHandler {
         ValidationError err = new ValidationError();
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
-        err.setError("Resource not found");
+        err.setError("Validation Exception");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
 

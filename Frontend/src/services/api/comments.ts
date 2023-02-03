@@ -18,6 +18,15 @@ export const getCommentsMovieId = async (movieId: number) => {
     .then((r) => r.data.content);
 };
 
+export const updateCommentService = async (
+  commentId: number,
+  data: Comment
+) => {
+  return await api
+    .put<Comment>(`/comments/${commentId}`, data)
+    .then((r) => r.data);
+};
+
 export const deleteCommentById = async (commentId: number) => {
   return await api.delete<void>(`/comments/${commentId}`);
 };

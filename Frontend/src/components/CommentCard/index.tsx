@@ -7,23 +7,38 @@ import "./styles.scss";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCommentById } from "../../services/api/comments";
+import {
+  deleteCommentById,
+  updateCommentService,
+} from "../../services/api/comments";
+import Switch from "@mui/material/Switch";
 
 type Props = {
   comment: Comment;
 };
 
 const CommentCard = ({ comment }: Props) => {
-  const { user } = useAuth();
+  const { user, hasRole } = useAuth();
   const [spoilerClass, setSpoilerClass] = useState("spoiler");
   const client = useQueryClient();
 
-  const { mutate } = useMutation(
+  const { mutate: deleteComment } = useMutation(
     async (commentId: number) => deleteCommentById(commentId),
     {
       onSuccess: () => client.invalidateQueries(["getCommentsByMovieId"]),
     }
   );
+
+  const { mutate: updateComment } = useMutation(
+    async (comment: Comment) => updateCommentService(comment.id, comment),
+    {
+      onSuccess: () => client.invalidateQueries(["getCommentsByMovieId"]),
+    }
+  );
+
+  const onHandleChangeSpoiler = () => {
+    updateComment({ ...comment, spoiler: !comment.spoiler });
+  };
 
   const onClickDelete = () => {
     if (
@@ -31,7 +46,7 @@ const CommentCard = ({ comment }: Props) => {
         `Deseja realmente deletar o comentário?\n"${comment.description}"`
       )
     )
-      mutate(comment.id);
+      deleteComment(comment.id);
   };
 
   return (
@@ -45,6 +60,16 @@ const CommentCard = ({ comment }: Props) => {
         </p>
       </div>
       <div className="commentCardActionsContainer">
+        <div hidden={!hasRole("ROLE_ADMIN")}>
+          <Switch
+            onChange={onHandleChangeSpoiler}
+            checked={comment.spoiler}
+            title="Spoiler?"
+            color="primary"
+            size="small"
+          />
+        </div>
+
         <button
           title="Visualizar comentário"
           hidden={!comment.spoiler || !spoilerClass}
@@ -52,6 +77,7 @@ const CommentCard = ({ comment }: Props) => {
         >
           <VisibilityIcon />
         </button>
+
         <button
           title="Esconder comentário"
           hidden={!!spoilerClass}
@@ -59,9 +85,10 @@ const CommentCard = ({ comment }: Props) => {
         >
           <VisibilityOffIcon />
         </button>
+
         <button
           title="Deletar"
-          hidden={comment.user.id !== user?.id}
+          hidden={comment.user.id !== user?.id && !hasRole("ROLE_ADMIN")}
           onClick={onClickDelete}
         >
           <DeleteIcon />

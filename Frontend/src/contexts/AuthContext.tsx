@@ -13,13 +13,15 @@ type UserLogin = {
   password: string;
 };
 
+type RoleOptions = "ROLE_ADMIN" | "ROLE_MEMBER";
+
 type AuthContextType = {
   login: (userLogin: UserLogin) => Promise<void>;
   isAuthenticated: () => boolean;
   logout: () => void;
   user: User | undefined;
   setUser: (value: React.SetStateAction<User | undefined>) => void;
-  hasRole: (role: string) => boolean | undefined;
+  hasRole: (role: RoleOptions) => boolean | undefined;
 };
 
 type Props = {
@@ -92,7 +94,7 @@ export const AuthContextProvider = ({ children }: Props) => {
     getCurrentUser().then((r) => setUser(r));
   }, []);
 
-  const hasRole = (role: string) => {
+  const hasRole = (role: RoleOptions) => {
     return user?.roles.some((r) => r.name === role);
   };
 
