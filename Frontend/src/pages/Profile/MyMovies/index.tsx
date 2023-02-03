@@ -36,7 +36,7 @@ const MyMovies = () => {
     <>
       <div className="mymovies-container">
         {data?.content.map((x) => (
-          <MovieCardProfile key={x.id} idMovie={x.movie.id} rating={x.rating} />
+          <MovieCardProfile key={x.id} idMovie={x.movie.id} rating={x.rating} idRating={x.id}/>
         ))}
       </div>
       <div className="myMoviesPaginationContainer">

@@ -19,3 +19,17 @@ export const getRatingsPagedByUser = async (
     })
     .then((r) => r.data);
 };
+
+export const updateRating = async (
+  rating: number,
+  movieId: number,
+  ratingId: number
+) => {
+  return await api
+    .put<Rating>(
+      `/ratings/${ratingId}`,
+      { rating, movie: { id: movieId } },
+      { headers: { Authorization: "Bearer " + getToken() } }
+    )
+    .then((r) => r.data);
+};

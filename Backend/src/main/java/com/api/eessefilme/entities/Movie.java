@@ -63,9 +63,4 @@ public class Movie implements Serializable {
     public void prePersist() {
         averageRating = 0d;
     }
-
-    @PreUpdate
-    public void updateAverageRating() {
-        // TODO: por a formula do Roberto aqui
-    }
 }
