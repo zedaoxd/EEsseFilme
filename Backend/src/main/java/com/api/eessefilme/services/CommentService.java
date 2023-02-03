@@ -5,10 +5,13 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.api.eessefilme.entities.Movie;
+import com.api.eessefilme.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +34,9 @@ public class CommentService {
 	
 	@Autowired
 	private AuthService authService;
+
+	@Autowired
+	private MovieRepository movieRepository;
 	
 	@Transactional(readOnly = true)
 	public Page<CommentDTO> paged(Pageable pageable){
@@ -48,6 +54,11 @@ public class CommentService {
 	public Page<CommentDTO> findCommentsByUser(Pageable pageable, Long userId){
 		User entity = userRepository.getReferenceById(userId);
 		return repository.findByUser(entity, pageable).map(x -> new  CommentDTO(x));
+	}
+
+	@Transactional(readOnly = true)
+	public Page<CommentDTO> findCommentsByMovie(Pageable pageable, Long movieId){
+		return repository.findByMovieId(movieId, pageable).map(CommentDTO::new);
 	}
 	
 	@Transactional

@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
-import Movie from "../../@Types/movie";
 import CommentCard from "../../components/CommentCard";
 import MovieTopic from "../../components/MovieTopic";
-import { api } from "../../services/api/api";
+import { getCommentsMovieId } from "../../services/api/comments";
+import { getOneMovie } from "../../services/api/movie";
 import "./styles.scss";
 
 const MovieDetails = () => {
   const { id } = useParams();
 
-  const [movie, setMovie] = useState<Movie>();
+  const { data: movie } = useQuery(["getOneMovie"], () =>
+    getOneMovie(Number(id))
+  );
 
-  useEffect(() => {
-    api.get<Movie>(`/movies/${id}`).then((response) => setMovie(response.data));
-  }, []);
+  const { data: comments } = useQuery(["getCommentsByMovieId"], () =>
+    getCommentsMovieId(Number(id))
+  );
 
   return (
     <main className="md-main-container">
@@ -60,7 +62,7 @@ const MovieDetails = () => {
         </div>
         <div className="md-content-coments">
           <h2>Comentarios:</h2>
-          {movie?.comments?.map((x) => (
+          {comments?.map((x) => (
             <CommentCard key={x.id} comment={x} />
           ))}
         </div>

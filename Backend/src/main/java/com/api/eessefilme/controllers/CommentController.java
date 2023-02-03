@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +44,13 @@ public class CommentController {
     @GetMapping(value = "/user/{userId}")
     public ResponseEntity<Page<CommentDTO>> findByUserId(Pageable pageable, @PathVariable("userId") Long userId){
     	return ResponseEntity.ok(service.findCommentsByUser(pageable, userId));
+    }
+
+    @GetMapping(value = "/movie/{movieId}")
+    public ResponseEntity<Page<CommentDTO>> findByMovieId(
+            @PageableDefault(sort = "dateComment", direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable("movieId") Long movieId) {
+        return ResponseEntity.ok(service.findCommentsByMovie(pageable, movieId));
     }
 
     @GetMapping(value = "/user/{userId}/movie/{movieId}")
