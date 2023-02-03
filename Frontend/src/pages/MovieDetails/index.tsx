@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
 import Movie from "../../@Types/movie";
+import CommentCard from "../../components/CommentCard";
 import MovieTopic from "../../components/MovieTopic";
 import { api } from "../../services/api/api";
 import "./styles.scss";
@@ -60,10 +61,7 @@ const MovieDetails = () => {
         <div className="md-content-coments">
           <h2>Comentarios:</h2>
           {movie?.comments?.map((x) => (
-            <div key={x.id}>
-              <h3>{x.user.firstName} </h3>
-              <p>{x.description}</p>
-            </div>
+            <CommentCard key={x.id} comment={x} />
           ))}
         </div>
       </div>

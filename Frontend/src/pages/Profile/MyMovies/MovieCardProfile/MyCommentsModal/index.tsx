@@ -2,6 +2,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Rating } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 import useAuth from "../../../../../hooks/useAuth";
 import { getCommentsByUserIdAndMovieId } from "../../../../../services/api/comments";
 import { updateRating } from "../../../../../services/api/ratings";
@@ -27,7 +28,7 @@ const MyCommentsModal = ({ isOpen, rating, idRating, idMovie, originalTitle, onC
   );
 
   const { mutate } = useMutation(async (newValue: number) => 
-    updateRating(newValue, idMovie, idRating), {
+    updateRating(newValue, idMovie, idRating).then(() => toast.success('Avaliação atualizada com sucesso!')), {
       onSuccess: () => client.invalidateQueries()
     }
   )

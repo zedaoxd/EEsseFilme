@@ -78,6 +78,7 @@ INSERT INTO tb_movie_genre (movie_id, genre_id) VALUES (14, 3);
 
 INSERT INTO tb_comment (date_comment, description, spoiler, movie_id, user_id) VALUES ('2022-10-10', 'Filme muito legal', 0, 1, 1);
 INSERT INTO tb_comment (date_comment, description, spoiler, movie_id, user_id) VALUES ('2022-10-11', 'Interessante, ele vai morrer', 1, 1, 1);
+INSERT INTO tb_comment (date_comment, description, spoiler, movie_id, user_id) VALUES ('2022-10-11', 'Nossa gente adorei', 0, 1, 2);
 INSERT INTO tb_comment (date_comment, description, spoiler, movie_id, user_id) VALUES ('2022-10-11', 'Interessante, ele vai morrer', 1, 2, 1);
 
 INSERT INTO tb_rating (date_rating, rating, movie_id, user_id) VALUES ('2022-10-13', 1, 1, 1);
