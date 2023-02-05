@@ -1,12 +1,14 @@
+import { Outlet } from "react-router";
 import { toast } from "react-toastify";
 import { api } from "../../../../../../services/api/api";
 
 type Props = {
   onUploadSuccess: (imgName: string) => void;
   onSelectImage: (image: File) => void;
+  children: React.ReactNode;
 };
 
-const Upload = ({ onUploadSuccess, onSelectImage }: Props) => {
+const Upload = ({ onUploadSuccess, onSelectImage, children }: Props) => {
   const uploadImage = (selectImage: File) => {
     const formData = new FormData();
     formData.append("file", selectImage);
@@ -30,7 +32,8 @@ const Upload = ({ onUploadSuccess, onSelectImage }: Props) => {
   };
   return (
     <>
-      <label htmlFor="movieCover">Selecione a capa do filme</label>
+      <h3>Selecione a capa do filme</h3>
+      <label htmlFor="movieCover">{children}</label>
       <input
         type="file"
         id="movieCover"

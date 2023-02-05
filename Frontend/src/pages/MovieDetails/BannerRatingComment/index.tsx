@@ -5,7 +5,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./styles.scss";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalComment from "./ModalComment";
 import Movie from "../../../@Types/movie";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -34,7 +34,9 @@ const BannerRatingComment = ({ movie }: Props) => {
   const client = useQueryClient();
   const [rating, setRating] = useState<FormData>();
 
-  getRatingByMovieIdCurrentUser(movie.id).then((r) => setRating(r));
+  useEffect(() => {
+    getRatingByMovieIdCurrentUser(movie.id).then((r) => setRating(r));
+  }, []);
 
   const { mutate } = useMutation(
     async (formData: FormData) =>

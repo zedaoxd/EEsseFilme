@@ -213,19 +213,20 @@ const CreateMovie = () => {
           <Upload
             onUploadSuccess={onUploadSuccess}
             onSelectImage={onSelectImage}
-          />
-          <img
-            src={
-              uploadedImageUrl
-                ? URL.createObjectURL(uploadedImageUrl)
-                : !isCreate
-                ? `data:image;base64, ${imageByte}`
-                : "/images/no-image-select.jpg"
-            }
-            alt="image"
-            height={200}
-            width={150}
-          />
+          >
+            <img
+              src={
+                uploadedImageUrl
+                  ? URL.createObjectURL(uploadedImageUrl)
+                  : !isCreate
+                  ? `data:image;base64, ${imageByte}`
+                  : "/images/no-image-select.jpg"
+              }
+              alt="image"
+              height={200}
+              width={150}
+            />
+          </Upload>
 
           <button type="submit">Salvar</button>
         </div>
