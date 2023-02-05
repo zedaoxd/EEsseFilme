@@ -35,6 +35,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final String[] PUBLIC = {"/oauth/token", "/h2-console/**"};
     private final String[] ADMIN = {"/api/users/**", "/api/movies/**", "/api/genres/**", "/api/ratings/**", "/api/comments/**" };
+    private final String[] MEMBER_AND_ADMIN = {"/api/users/**", "/api/comments/**"};
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -53,6 +54,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(PUBLIC).permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("ADMIN", "MEMBER")
+                .antMatchers(HttpMethod.POST, MEMBER_AND_ADMIN).hasAnyRole("ADMIN", "MEMBER")
                 .antMatchers(HttpMethod.GET, ADMIN).permitAll()
                 .antMatchers(ADMIN).hasAnyRole("ADMIN")
                 .anyRequest().authenticated();

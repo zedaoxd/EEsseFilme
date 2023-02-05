@@ -42,9 +42,9 @@ public class Rating implements Serializable {
         dateRating = new Date();
     }
 
-    @PreUpdate
-    public void preUpdate() {
-        this.movie.setAverageRating(0d);
-    }
+//    @PreUpdate
+//    public void preUpdate() {
+//        this.movie.setAverageRating(0d);
+//    }
 
 }

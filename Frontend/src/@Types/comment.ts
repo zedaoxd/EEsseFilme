@@ -1,3 +1,4 @@
+import Movie from "./movie";
 import User from "./user";
 
 type Comment = {
@@ -6,6 +7,7 @@ type Comment = {
   spoiler: boolean;
   dateComment: string;
   user: User;
+  movie: Movie;
 };
 
 export default Comment;

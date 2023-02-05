@@ -1,5 +1,6 @@
 package com.api.eessefilme.services;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,7 @@ public class CommentService {
 		Comment entity = new Comment();
 		entity.setDescription(dto.getDescription());
 		entity.setUser(authService.authenticated());
+		entity.setMovie(movieRepository.getReferenceById(dto.getMovie().getId()));
 		return new CommentDTO(repository.save(entity));
 	}
 	

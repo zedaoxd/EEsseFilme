@@ -56,8 +56,6 @@ public class MovieDTO implements Serializable {
         this.nationalTitle = entity.getNationalTitle();
         this.originTitle = entity.getOriginTitle();
         this.id = entity.getId();
-        this.genres.clear();
-        //entity.getGenres().forEach(x -> this.genres.add(new GenreDTO(x)));
     }
 
     public MovieDTO(Movie entity, boolean genres) {
@@ -71,7 +69,6 @@ public class MovieDTO implements Serializable {
         this.nationalTitle = entity.getNationalTitle();
         this.originTitle = entity.getOriginTitle();
         this.id = entity.getId();
-        this.genres.clear();
         if (genres)
             entity.getGenres().forEach(x -> this.genres.add(new GenreDTO(x)));
     }

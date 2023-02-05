@@ -61,9 +61,7 @@ const MovieDetails = () => {
           <h2>Sinopse:</h2>
           <p>{movie?.synopsis}</p>
         </div>
-
-        <BannerRatingComment />
-
+        {movie && <BannerRatingComment movie={movie} />}
         <div className="md-content-coments">
           <h2>Comentarios:</h2>
           {comments?.map((x) => (

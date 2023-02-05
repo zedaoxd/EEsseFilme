@@ -2,6 +2,8 @@
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   color: white;
 
@@ -33,6 +35,24 @@
       &:hover {
         color: lightcoral;
       }
+    }
+  }
+
+  & .BannerRatingCommentMessageWithoutLogin {
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
     }
   }
 }

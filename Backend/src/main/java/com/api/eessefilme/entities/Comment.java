@@ -30,7 +30,7 @@ public class Comment implements Serializable{
 	private boolean spoiler;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateComment;
 	
 	@ManyToOne

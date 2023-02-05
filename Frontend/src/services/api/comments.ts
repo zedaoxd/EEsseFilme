@@ -18,6 +18,10 @@ export const getCommentsMovieId = async (movieId: number) => {
     .then((r) => r.data.content);
 };
 
+export const saveComment = async (data: Comment) => {
+  return await api.post<Comment>(`/comments`, data).then((r) => r.data);
+};
+
 export const updateCommentService = async (
   commentId: number,
   data: Comment
