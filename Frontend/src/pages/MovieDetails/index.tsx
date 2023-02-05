@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
 import CommentCard from "../../components/CommentCard";

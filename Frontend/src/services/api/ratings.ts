@@ -21,10 +21,7 @@ export const getRatingsPagedByUser = async (
 };
 
 export const getRatingByMovieIdCurrentUser = async (movieId: number) => {
-  return await api
-    .get<Rating>(`/ratings/movie/${movieId}`)
-    .then((r) => r.data)
-    .catch((e) => console.log(e));
+  return await api.get<Rating>(`/ratings/movie/${movieId}`).then((r) => r.data);
 };
 
 export const saveRating = async (rating: number, movieId: number) => {

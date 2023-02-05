@@ -32,11 +32,9 @@ const BannerRatingComment = ({ movie }: Props) => {
   const { isAuthenticated } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const client = useQueryClient();
+  const [rating, setRating] = useState<FormData>();
 
-  const { data: rating, isLoading } = useQuery(
-    ["getRatingByMovieIdCurrentUser"],
-    () => getRatingByMovieIdCurrentUser(movie.id)
-  );
+  getRatingByMovieIdCurrentUser(movie.id).then((r) => setRating(r));
 
   const { mutate } = useMutation(
     async (formData: FormData) =>
@@ -46,7 +44,6 @@ const BannerRatingComment = ({ movie }: Props) => {
     {
       onSuccess: () => {
         client.invalidateQueries(["getOneMovie"]);
-        client.invalidateQueries(["getRatingByMovieIdCurrentUser"]);
       },
     }
   );
@@ -66,7 +63,7 @@ const BannerRatingComment = ({ movie }: Props) => {
     <section className="BannerRatingCommentContainer">
       {isAuthenticated() ? (
         <>
-          {isLoading ? (
+          {!rating ? (
             <SpinnerCircular color="red" />
           ) : (
             <div>
@@ -74,7 +71,7 @@ const BannerRatingComment = ({ movie }: Props) => {
 
               <Rating
                 name="half-rating"
-                value={rating?.rating}
+                value={rating.rating}
                 precision={0.5}
                 onChange={onChangeRating}
                 emptyIcon={
