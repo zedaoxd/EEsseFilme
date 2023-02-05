@@ -56,6 +56,15 @@ public class RatingService {
 		User entity = userRepository.getReferenceById(userId);
 		return repository.findByUserId(entity.getId(), pageable).map(x -> new  RatingDTO(x));
 	}
+
+	@Transactional(readOnly = true)
+	public RatingDTO findRatingByUserIdByMovieId(Long movieId){
+		Rating entity = repository.findByUserIdAndMovieId(authService.authenticated().getId(), movieId);
+		if (entity == null) {
+			return new RatingDTO();
+		}
+		return new RatingDTO(entity);
+	}
 	
 	@Transactional
 	public RatingDTO save(RatingDTO dto){

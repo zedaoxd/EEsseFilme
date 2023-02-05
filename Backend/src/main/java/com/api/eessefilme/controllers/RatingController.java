@@ -36,6 +36,11 @@ public class RatingController {
         return ResponseEntity.ok(service.findRatingsByUser(pageable, userId));
     }
 
+    @GetMapping(value = "/movie/{movieId}")
+    public ResponseEntity<RatingDTO> findByUserIdMovieId(@PathVariable("movieId") Long movieId) {
+        return ResponseEntity.ok(service.findRatingByUserIdByMovieId(movieId));
+    }
+
     @PostMapping
     public ResponseEntity<RatingDTO> save(@RequestBody @Valid RatingDTO dto) {
         dto = service.save(dto);

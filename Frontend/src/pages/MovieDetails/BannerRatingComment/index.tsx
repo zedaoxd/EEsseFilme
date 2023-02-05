@@ -8,33 +8,85 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalComment from "./ModalComment";
 import Movie from "../../../@Types/movie";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getRatingByMovieIdCurrentUser,
+  saveRating,
+  updateRating,
+} from "../../../services/api/ratings";
+import { SpinnerCircular } from "spinners-react";
 
 type Props = {
   movie: Movie;
 };
 
+type FormData = {
+  id: number;
+  rating: number;
+  movie: {
+    id: number;
+  };
+};
+
 const BannerRatingComment = ({ movie }: Props) => {
   const { isAuthenticated } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const client = useQueryClient();
+
+  const { data: rating, isLoading } = useQuery(
+    ["getRatingByMovieIdCurrentUser"],
+    () => getRatingByMovieIdCurrentUser(movie.id)
+  );
+
+  const { mutate } = useMutation(
+    async (formData: FormData) =>
+      rating?.rating !== null
+        ? updateRating(formData.rating, formData.movie.id, formData.id)
+        : saveRating(formData.rating, formData.movie.id),
+    {
+      onSuccess: () => {
+        client.invalidateQueries(["getOneMovie"]);
+        client.invalidateQueries(["getRatingByMovieIdCurrentUser"]);
+      },
+    }
+  );
+
+  const onChangeRating = (
+    event: React.SyntheticEvent,
+    value: number | null
+  ) => {
+    mutate({
+      rating: value || 0,
+      movie: { id: movie.id },
+      id: rating?.id,
+    } as FormData);
+  };
 
   return (
     <section className="BannerRatingCommentContainer">
       {isAuthenticated() ? (
         <>
-          <div>
-            <span>Avaliar :</span>
-            <Rating
-              name="half-rating"
-              value={0}
-              precision={0.5}
-              emptyIcon={
-                <StarIcon
-                  style={{ opacity: 1, color: "gray" }}
-                  fontSize="inherit"
-                />
-              }
-            />
-          </div>
+          {isLoading ? (
+            <SpinnerCircular color="red" />
+          ) : (
+            <div>
+              <span>Avaliar :</span>
+
+              <Rating
+                name="half-rating"
+                value={rating?.rating}
+                precision={0.5}
+                onChange={onChangeRating}
+                emptyIcon={
+                  <StarIcon
+                    style={{ opacity: 1, color: "gray" }}
+                    fontSize="inherit"
+                  />
+                }
+              />
+            </div>
+          )}
+
           <div>
             <button onClick={() => setIsModalOpen(true)}>
               <RateReviewIcon /> Escrever comentário
