@@ -1,8 +1,10 @@
 import AddIcon from "@mui/icons-material/Add";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Page from "../../../../@Types/page";
+import User from "../../../../@Types/user";
 import AppPagination from "../../../../components/Pagination";
 import UsersFilter from "../../../../components/UsersFilter";
 import { deleteById, getAllUsersPaged } from "../../../../services/api/user";
@@ -22,14 +24,23 @@ const ManageUsers = () => {
       emailFilter: "",
     });
 
-  const { data: page } = useQuery(
-    ["getAllUsersPaged", controlComponentData.activePage],
-    () =>
-      getAllUsersPaged(
-        controlComponentData.activePage,
-        controlComponentData.emailFilter
-      )
-  );
+  const [page, setPage] = useState<Page<User>>();
+
+  useEffect(() => {
+    getAllUsersPaged(
+      controlComponentData.activePage,
+      controlComponentData.emailFilter
+    ).then((r) => setPage(r));
+  }, [controlComponentData]);
+
+  // const { data: page } = useQuery(
+  //   ["getAllUsersPaged", controlComponentData.activePage],
+  //   () =>
+  //     getAllUsersPaged(
+  //       controlComponentData.activePage,
+  //       controlComponentData.emailFilter
+  //     )
+  // );
 
   const { mutate } = useMutation((userId: number) => deleteById(userId), {
     onSuccess: () =>

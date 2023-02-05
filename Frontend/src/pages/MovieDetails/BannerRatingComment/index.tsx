@@ -36,7 +36,7 @@ const BannerRatingComment = ({ movie }: Props) => {
 
   useEffect(() => {
     getRatingByMovieIdCurrentUser(movie.id).then((r) => setRating(r));
-  }, []);
+  }, [movie.averageRating]);
 
   const { mutate } = useMutation(
     async (formData: FormData) =>

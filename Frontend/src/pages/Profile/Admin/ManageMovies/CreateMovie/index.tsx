@@ -10,7 +10,7 @@ import { getAllGenres } from "../../../../../services/api/genre";
 import Upload from "./Upload";
 import "./styles.scss";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Movie from "../../../../../@Types/movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import {
@@ -18,6 +18,7 @@ import {
   saveMovie,
   updateMovie,
 } from "../../../../../services/api/movie";
+import { toast } from "react-toastify";
 
 flatpickrLib.localize(Portuguese);
 
@@ -47,6 +48,7 @@ const CreateMovie = () => {
   const { data: genres } = useQuery(["getAllGenres"], getAllGenres);
   const [defaultValueDate, setDefaultValueDate] = useState("");
   const [imageByte, setImageByte] = useState<number[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isCreate)
@@ -65,8 +67,17 @@ const CreateMovie = () => {
       });
   }, [isCreate, id]);
 
-  const { mutate } = useMutation(async (m: Movie) =>
-    isCreate ? saveMovie(m) : updateMovie(m)
+  const { mutate } = useMutation(
+    async (m: Movie) =>
+      isCreate ? saveMovie(m) : updateMovie({ ...m, id: Number(id) }),
+    {
+      onSuccess: () => {
+        navigate("/profile/admin/movies");
+        toast.success(
+          isCreate ? "Filme criado com sucesso!" : "Filme editado com sucesso!"
+        );
+      },
+    }
   );
 
   const onSubmitForm = (data: FormData) => {

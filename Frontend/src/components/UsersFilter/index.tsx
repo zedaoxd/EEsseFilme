@@ -32,6 +32,7 @@ const UsersFilter = ({ onSubmitFilter }: Props) => {
           placeholder="E-mail"
           name="email"
           onChange={onChange}
+          autoComplete="off"
         />
 
         <button type="submit">
