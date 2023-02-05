@@ -12,6 +12,14 @@ type Props = {
 };
 
 const MovieCardProfile = ({ movie, onDelete }: Props) => {
+  const deleteMovie = () => {
+    if (
+      confirm(`Deseja realmente deletar o filme: \n"${movie.nationalTitle}"`)
+    ) {
+      onDelete(movie.id);
+    }
+  };
+
   return (
     <div className="mcp-container">
       <div className="mcp-image-container">
@@ -42,7 +50,7 @@ const MovieCardProfile = ({ movie, onDelete }: Props) => {
             <EditIcon />
             Editar
           </Link>
-          <button onClick={() => onDelete(movie.id)}>
+          <button onClick={deleteMovie}>
             <DeleteIcon />
             Deletar
           </button>

@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import "./styles.scss";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <div className="container-navbar">
@@ -23,9 +23,9 @@ const Navbar = () => {
             <MovieIcon /> <span>Repositório de Filmes</span>
           </NavLink>
 
-          {user ? (
+          {isAuthenticated() ? (
             <NavLink to={"/profile"}>
-              <PersonIcon /> <span>{user.email}</span>
+              <PersonIcon /> <span>{user?.email}</span>
             </NavLink>
           ) : (
             <NavLink to={"/auth"}>

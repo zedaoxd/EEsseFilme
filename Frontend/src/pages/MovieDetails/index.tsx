@@ -6,6 +6,7 @@ import MovieTopic from "../../components/MovieTopic";
 import { getCommentsMovieId } from "../../services/api/comments";
 import { getOneMovie } from "../../services/api/movie";
 import BannerRatingComment from "./BannerRatingComment";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import "./styles.scss";
 
 const MovieDetails = () => {
@@ -64,9 +65,17 @@ const MovieDetails = () => {
         {movie && <BannerRatingComment movie={movie} />}
         <div className="md-content-coments">
           <h2>Comentarios:</h2>
-          {comments?.map((x) => (
-            <CommentCard key={x.id} comment={x} />
-          ))}
+          {comments && comments.length !== 0 ? (
+            comments.map((x) => <CommentCard key={x.id} comment={x} />)
+          ) : (
+            <div className="md-no-comments-data-container">
+              <h2>
+                <SentimentVeryDissatisfiedIcon />
+                Este filme não tem nenhum comentário, seja o primeiro a
+                comentar!
+              </h2>
+            </div>
+          )}
         </div>
       </div>
     </main>

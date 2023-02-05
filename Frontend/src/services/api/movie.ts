@@ -22,6 +22,14 @@ export const getOneMovie = async (id: number) => {
   return api.get<Movie>(`/movies/${id}`).then((r) => r.data);
 };
 
+export const saveMovie = async (movie: Movie) => {
+  return await api.post<Movie>("/movies", movie).then((r) => r.data);
+};
+
+export const updateMovie = async (movie: Movie) => {
+  return await api.put<Movie>(`/movies/${movie.id}`, movie).then((r) => r.data);
+};
+
 export const deleteById = async (id: number) => {
   return api.delete<void>(`/movies/${id}`);
 };

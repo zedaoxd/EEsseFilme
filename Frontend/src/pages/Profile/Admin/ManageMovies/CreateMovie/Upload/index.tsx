@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../../../../../../services/api/api";
 
 type Props = {
   onUploadSuccess: (imgName: string) => void;
+  onSelectImage: (image: File) => void;
 };
 
-const Upload = ({ onUploadSuccess }: Props) => {
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<File>();
-
+const Upload = ({ onUploadSuccess, onSelectImage }: Props) => {
   const uploadImage = (selectImage: File) => {
     const formData = new FormData();
     formData.append("file", selectImage);
@@ -26,7 +24,7 @@ const Upload = ({ onUploadSuccess }: Props) => {
     const selectImage = event.target.files?.[0];
 
     if (selectImage) {
-      setUploadedImageUrl(selectImage);
+      onSelectImage(selectImage);
       uploadImage(selectImage);
     }
   };
@@ -45,14 +43,6 @@ const Upload = ({ onUploadSuccess }: Props) => {
         As imagens devem ser JPEG ou PNG e não devem ultrapassar
         <strong> 10 mb.</strong>
       </small>
-      {uploadedImageUrl && (
-        <img
-          src={URL.createObjectURL(uploadedImageUrl)}
-          alt="image"
-          height={200}
-          width={100}
-        />
-      )}
     </>
   );
 };
