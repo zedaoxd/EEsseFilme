@@ -1,4 +1,5 @@
 import { Rating, Stack } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
 import "./styles.scss";
 
 type Props = {
@@ -17,6 +18,12 @@ const RatingStar = ({ readable, initialValue }: Props) => {
             precision={0.5}
             readOnly
             value={initialValue ? initialValue : 0}
+            emptyIcon={
+              <StarIcon
+                style={{ opacity: 1, color: "gray" }}
+                fontSize="inherit"
+              />
+            }
           />
         </Stack>
       </h3>

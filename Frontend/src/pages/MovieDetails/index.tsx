@@ -5,6 +5,7 @@ import CommentCard from "../../components/CommentCard";
 import MovieTopic from "../../components/MovieTopic";
 import { getCommentsMovieId } from "../../services/api/comments";
 import { getOneMovie } from "../../services/api/movie";
+import BannerRatingComment from "./BannerRatingComment";
 import "./styles.scss";
 
 const MovieDetails = () => {
@@ -60,6 +61,9 @@ const MovieDetails = () => {
           <h2>Sinopse:</h2>
           <p>{movie?.synopsis}</p>
         </div>
+
+        <BannerRatingComment />
+
         <div className="md-content-coments">
           <h2>Comentarios:</h2>
           {comments?.map((x) => (

@@ -3,7 +3,6 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import DeleteIcon from "@mui/icons-material/Delete";
-import "./styles.scss";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,6 +11,8 @@ import {
   updateCommentService,
 } from "../../services/api/comments";
 import Switch from "@mui/material/Switch";
+
+import "./styles.scss";
 
 type Props = {
   comment: Comment;
@@ -60,39 +61,41 @@ const CommentCard = ({ comment }: Props) => {
         </p>
       </div>
       <div className="commentCardActionsContainer">
-        <div hidden={!hasRole("ROLE_ADMIN")}>
-          <Switch
-            onChange={onHandleChangeSpoiler}
-            checked={comment.spoiler}
-            title="Spoiler?"
-            color="primary"
-            size="small"
-          />
+        <div>
+          <div hidden={!hasRole("ROLE_ADMIN")}>
+            <Switch
+              onChange={onHandleChangeSpoiler}
+              checked={comment.spoiler}
+              title="Spoiler?"
+              color="primary"
+              size="small"
+            />
+          </div>
+
+          <button
+            title="Visualizar comentário"
+            hidden={!comment.spoiler || !spoilerClass}
+            onClick={() => setSpoilerClass("")}
+          >
+            <VisibilityIcon />
+          </button>
+
+          <button
+            title="Esconder comentário"
+            hidden={!!spoilerClass}
+            onClick={() => setSpoilerClass("spoiler")}
+          >
+            <VisibilityOffIcon />
+          </button>
+
+          <button
+            title="Deletar"
+            hidden={comment.user.id !== user?.id && !hasRole("ROLE_ADMIN")}
+            onClick={onClickDelete}
+          >
+            <DeleteIcon />
+          </button>
         </div>
-
-        <button
-          title="Visualizar comentário"
-          hidden={!comment.spoiler || !spoilerClass}
-          onClick={() => setSpoilerClass("")}
-        >
-          <VisibilityIcon />
-        </button>
-
-        <button
-          title="Esconder comentário"
-          hidden={!!spoilerClass}
-          onClick={() => setSpoilerClass("spoiler")}
-        >
-          <VisibilityOffIcon />
-        </button>
-
-        <button
-          title="Deletar"
-          hidden={comment.user.id !== user?.id && !hasRole("ROLE_ADMIN")}
-          onClick={onClickDelete}
-        >
-          <DeleteIcon />
-        </button>
       </div>
     </div>
   );
