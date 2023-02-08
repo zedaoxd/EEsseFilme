@@ -1,5 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,15 +32,6 @@ const ManageUsers = () => {
       controlComponentData.emailFilter
     ).then((r) => setPage(r));
   }, [controlComponentData]);
-
-  // const { data: page } = useQuery(
-  //   ["getAllUsersPaged", controlComponentData.activePage],
-  //   () =>
-  //     getAllUsersPaged(
-  //       controlComponentData.activePage,
-  //       controlComponentData.emailFilter
-  //     )
-  // );
 
   const { mutate } = useMutation((userId: number) => deleteById(userId), {
     onSuccess: () =>
