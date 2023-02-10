@@ -4,7 +4,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 import useAuth from "../../../../../hooks/useAuth";
-import { getCommentsByUserIdAndMovieId } from "../../../../../services/api/comments";
+import {
+  deleteCommentById,
+  getCommentsByUserIdAndMovieId,
+} from "../../../../../services/api/comments";
 import { updateRating } from "../../../../../services/api/ratings";
 import Comment from "./Comment";
 import "./styles.scss";
@@ -18,24 +21,46 @@ type Props = {
   onClose: () => void;
 };
 
-const MyCommentsModal = ({ isOpen, rating, idRating, idMovie, originalTitle, onClose }: Props) => {
+const MyCommentsModal = ({
+  isOpen,
+  rating,
+  idRating,
+  idMovie,
+  originalTitle,
+  onClose,
+}: Props) => {
   const { user } = useAuth();
 
   const client = useQueryClient();
 
-  const { data } = useQuery(['comments', idMovie, user?.id], () =>
+  const { data } = useQuery(["comments", idMovie, user?.id], () =>
     getCommentsByUserIdAndMovieId(user?.id || 0, idMovie)
   );
 
-  const { mutate } = useMutation(async (newValue: number) => 
-    updateRating(newValue, idMovie, idRating).then(() => toast.success('Avaliação atualizada com sucesso!')), {
-      onSuccess: () => client.invalidateQueries()
+  const { mutate } = useMutation(
+    async (newValue: number) =>
+      updateRating(newValue, idMovie, idRating).then(() =>
+        toast.success("Avaliação atualizada com sucesso!")
+      ),
+    {
+      onSuccess: () => client.invalidateQueries(),
     }
-  )
+  );
+
+  const { mutate: mutateDelete } = useMutation(
+    async (id: number) => {
+      await deleteCommentById(id);
+      toast.success("Comentário deletado com sucesso!");
+    },
+    {
+      onSuccess: () =>
+        client.invalidateQueries(["comments", idMovie, user?.id]),
+    }
+  );
 
   const onChange = (event: React.SyntheticEvent, value: number | null) => {
     mutate(value || 0);
-  }
+  };
 
   return (
     <Modal
@@ -53,13 +78,25 @@ const MyCommentsModal = ({ isOpen, rating, idRating, idMovie, originalTitle, onC
 
       <div className="modalRatingContainer">
         <label htmlFor="rating">Minha avaliação</label>
-        <Rating id="rating" name="half-rating" precision={0.5} value={rating} onChange={onChange} />
+        <Rating
+          id="rating"
+          name="half-rating"
+          precision={0.5}
+          value={rating}
+          onChange={onChange}
+        />
       </div>
 
       <div className="modalCommentsContainer">
         <h2>Meus Comentários</h2>
         {data &&
-          data.map((x) => <Comment description={x.description} key={x.id} />)}
+          data.map((x) => (
+            <Comment
+              description={x.description}
+              onDelete={() => mutateDelete(x.id)}
+              key={x.id}
+            />
+          ))}
       </div>
     </Modal>
   );
