@@ -1,15 +1,15 @@
 import AddIcon from "@mui/icons-material/Add";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import Page from "../../../../@Types/page";
 import User from "../../../../@Types/user";
 import AppPagination from "../../../../components/Pagination";
 import UsersFilter from "../../../../components/UsersFilter";
 import { deleteById, getAllUsersPaged } from "../../../../services/api/user";
-import "./styles.scss";
 import UserCard from "./UserCard";
+import swal from "sweetalert";
+import "./styles.scss";
 
 type ControlComponentsData = {
   activePage: number;
@@ -17,7 +17,6 @@ type ControlComponentsData = {
 };
 
 const ManageUsers = () => {
-  const client = useQueryClient();
   const [controlComponentData, setControlComponentData] =
     useState<ControlComponentsData>({
       activePage: 0,
@@ -34,11 +33,15 @@ const ManageUsers = () => {
   }, [controlComponentData]);
 
   const { mutate } = useMutation((userId: number) => deleteById(userId), {
-    onSuccess: () =>
-      client.invalidateQueries([
-        "getAllUsersPaged",
+    onSuccess: () => {
+      getAllUsersPaged(
         controlComponentData.activePage,
-      ]),
+        controlComponentData.emailFilter
+      ).then((r) => setPage(r));
+      swal("Usuário deletado com sucesso!", {
+        icon: "success",
+      });
+    },
   });
 
   const handlePageChange = (pageNumber: number) => {
@@ -53,10 +56,19 @@ const ManageUsers = () => {
   };
 
   const onDeleteUser = (userId: number) => {
-    if (window.confirm("Deseja realmente deletar este usuário? ")) {
-      mutate(userId);
-      toast.info("Usuário deletado");
-    }
+    swal({
+      title: "Você tem certeza?",
+      text: "uma vez deletado não poderá voltar atrás!",
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        mutate(userId);
+      } else {
+        swal("Delete cancelado!");
+      }
+    });
   };
 
   return (

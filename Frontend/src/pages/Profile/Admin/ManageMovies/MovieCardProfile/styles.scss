@@ -25,6 +25,11 @@
     & .mcp-content-data-container {
       flex: 1;
 
+      & h2 {
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
       & h2,
       p {
         margin-bottom: 3px;

@@ -4,6 +4,7 @@ import { Rating } from "@mui/material";
 import { Link } from "react-router-dom";
 import Movie from "../../../../../@Types/movie";
 import GenreTag from "./GenreTag";
+import swal from "sweetalert";
 import "./styles.scss";
 
 type Props = {
@@ -13,11 +14,19 @@ type Props = {
 
 const MovieCardProfile = ({ movie, onDelete }: Props) => {
   const deleteMovie = () => {
-    if (
-      confirm(`Deseja realmente deletar o filme: \n"${movie.nationalTitle}"`)
-    ) {
-      onDelete(movie.id);
-    }
+    swal({
+      title: "Você tem certeza?",
+      text: "uma vez deletado não poderá voltar atrás!",
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        onDelete(movie.id);
+      } else {
+        swal("Delete cancelado!");
+      }
+    });
   };
 
   return (

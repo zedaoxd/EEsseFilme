@@ -10,6 +10,7 @@ import MovieFilter, {
 import AppPagination from "../../../../components/Pagination";
 import { deleteById, getMoviesPaged } from "../../../../services/api/movie";
 import MovieCardProfile from "./MovieCardProfile";
+import swal from "sweetalert";
 import "./styles.scss";
 
 type FilterData = {
@@ -40,7 +41,12 @@ const ManageMovies = () => {
   const { mutate: onDelete } = useMutation(
     (movieId: number) => deleteById(movieId),
     {
-      onSuccess: () => window.location.reload(),
+      onSuccess: () => {
+        getMovies();
+        swal("Filme deletado com sucesso!", {
+          icon: "success",
+        });
+      },
     }
   );
 

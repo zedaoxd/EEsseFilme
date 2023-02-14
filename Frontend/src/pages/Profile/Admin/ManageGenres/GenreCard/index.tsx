@@ -1,9 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import Genre from "../../../../../@Types/genre";
 import { deleteGenre } from "../../../../../services/api/genre";
+import swal from "sweetalert";
 import "./styles.scss";
 
 type Props = {
@@ -19,20 +19,36 @@ const GenreCard = ({ genre, onOpenModal }: Props) => {
       return await deleteGenre(id);
     },
     {
-      onSuccess: () => client.invalidateQueries(["getAllGenresManager"]),
+      onSuccess: () => {
+        client.invalidateQueries(["getAllGenresManager"]);
+        swal("Genero deletado com sucesso!", {
+          icon: "success",
+        });
+      },
       onError: (e: any) => {
         if (e.response.status === 400) {
-          toast.error(
-            "Para deletar esse gênero antes apague os filmes referentes"
-          );
+          swal("Para deletar esse gênero antes apague os filmes referentes", {
+            icon: "error",
+          });
         }
       },
     }
   );
 
   const confirmDeleteGenre = () => {
-    if (confirm(`Deseja realmente deletar o gênero: ${genre.name}`))
-      mutate(genre.id);
+    swal({
+      title: "Você tem certeza?",
+      text: "uma vez deletado não poderá voltar atrás!",
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        mutate(genre.id);
+      } else {
+        swal("Delete cancelado!");
+      }
+    });
   };
 
   return (
