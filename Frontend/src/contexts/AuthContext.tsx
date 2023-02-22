@@ -4,7 +4,7 @@ import qs from "qs";
 import { createContext, useCallback, useEffect, useState } from "react";
 import Role from "../@Types/role";
 import User from "../@Types/user";
-import { api } from "../services/api/api";
+import { api, BASE_URL } from "../services/api/api";
 import { getCurrentUser } from "../services/api/user";
 import { getToken } from "../utils/storage";
 
@@ -54,9 +54,11 @@ export const AuthContextProvider = ({ children }: Props) => {
       grant_type: "password",
     });
 
+    const base_url = BASE_URL.replace("/api", "");
+
     return await axios({
       method: "POST",
-      baseURL: "http://localhost:8080",
+      baseURL: base_url,
       url: "/oauth/token",
       data: data,
       headers: headers,
