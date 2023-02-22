@@ -50,7 +50,8 @@ public class MovieService {
     @Autowired
     private RatingRepository ratingRepository;
 
-    private final String PATH_IMAGE = "./src/main/resources/images/";
+    //private final String PATH_IMAGE = "./src/main/resources/images/";
+    private final String PATH_IMAGE = "../src/main/resources/images/";
 
     @Transactional(readOnly = true)
     public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle){
