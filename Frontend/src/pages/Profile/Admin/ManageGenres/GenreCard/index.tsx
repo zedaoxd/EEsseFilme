@@ -45,8 +45,6 @@ const GenreCard = ({ genre, onOpenModal }: Props) => {
     }).then((willDelete) => {
       if (willDelete) {
         mutate(genre.id);
-      } else {
-        swal("Delete cancelado!");
       }
     });
   };

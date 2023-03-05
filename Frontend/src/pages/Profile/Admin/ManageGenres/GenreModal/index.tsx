@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 import Genre from "../../../../../@Types/genre";
 import { saveGenre, updateGenre } from "../../../../../services/api/genre";
 import "./styles.scss";
@@ -20,7 +21,12 @@ type FormData = {
 };
 
 const GenreModal = ({ isOpen, genre, onClose }: Props) => {
-  const { register, handleSubmit, setValue } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
   const client = useQueryClient();
 
   useEffect(() => {
@@ -38,6 +44,7 @@ const GenreModal = ({ isOpen, genre, onClose }: Props) => {
 
   const onSubmit = (formData: FormData) => {
     mutate(formData);
+    toast.success("Ação realizada com sucesso!");
     onClose();
   };
 
@@ -62,6 +69,9 @@ const GenreModal = ({ isOpen, genre, onClose }: Props) => {
             placeholder="Gênero"
             name="name"
           />
+          {errors.name && (
+            <div className="invalid-feedback">Campo obrigatório</div>
+          )}
 
           <button type="submit">
             {genre ? (

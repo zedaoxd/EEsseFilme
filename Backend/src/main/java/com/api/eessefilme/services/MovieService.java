@@ -50,14 +50,14 @@ public class MovieService {
     @Autowired
     private RatingRepository ratingRepository;
 
-    private final String PATH_IMAGE = "./";
+    private final String PATH_IMAGE = "./src/main/resources/images/";
 
     @Transactional(readOnly = true)
-    public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle){
-        //var page = repository.findAll(pageable).map(x -> new MovieDTO(x, true));
+    public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle) {
         List<Genre> categories = genreId == 0 ? null : List.of(genreRepository.getReferenceById(genreId));
-        var page = repository.find(categories, originalTitle, pageable).map(x -> new MovieDTO(x, true));
-        for(MovieDTO m: page){
+        var page = repository.find(categories, originalTitle, null, null, pageable).map(x -> new MovieDTO(x, true));
+
+        for (MovieDTO m : page) {
             m.setImageByte(getImageByte(m.getImage()));
         }
         return page;
@@ -107,7 +107,7 @@ public class MovieService {
         List<Movie> movies = repository.findTop10PlusAverageRating();
         repository.findMovieWithCategories(movies);
         List<MovieDTO> _dtos = movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
-        for(MovieDTO d : _dtos) {
+        for (MovieDTO d : _dtos) {
             d.setImageByte(getImageByte(d.getImage()));
         }
         return _dtos;
@@ -117,15 +117,16 @@ public class MovieService {
     public List<MovieDTO> findTop10Date() {
         List<Movie> movies = repository.findFirst10ByOrderByReleaseDateDesc();
         repository.findMovieWithCategories(movies);
-        //movies = movies.stream().sorted((x , y) -> y.getReleaseDate().compareTo(x.getReleaseDate())).collect(Collectors.toList());
+        // movies = movies.stream().sorted((x , y) ->
+        // y.getReleaseDate().compareTo(x.getReleaseDate())).collect(Collectors.toList());
         List<MovieDTO> _dtos = movies.stream().map(x -> new MovieDTO(x, true)).collect(Collectors.toList());
-        for(MovieDTO d : _dtos) {
+        for (MovieDTO d : _dtos) {
             d.setImageByte(getImageByte(d.getImage()));
         }
         return _dtos;
     }
 
-    public String saveImage(MultipartFile file)  {
+    public String saveImage(MultipartFile file) {
         try {
             if (!file.isEmpty()) {
                 byte[] bytes = file.getBytes();

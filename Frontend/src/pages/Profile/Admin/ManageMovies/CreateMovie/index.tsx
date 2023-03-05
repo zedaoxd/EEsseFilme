@@ -177,6 +177,7 @@ const CreateMovie = () => {
               })}
               name="parentalRating"
               type="number"
+              min={0}
               placeholder="Classificação indicativa"
             />
             {errors.parentalRating && (

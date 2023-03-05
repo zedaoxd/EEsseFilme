@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../../utils/storage";
 
-export const BASE_URL = "https://eessefilme-production.up.railway.app/api";
+export const BASE_URL = "http://localhost:8080/api"; ///"https://eessefilme-production.up.railway.app/api";
 // process.env.REACT_APP_BACKEND_URL ?? "http://localhost:8080/api";
 
 export const api = axios.create({
