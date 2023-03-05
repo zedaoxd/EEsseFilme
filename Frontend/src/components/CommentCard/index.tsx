@@ -13,6 +13,7 @@ import {
 import Switch from "@mui/material/Switch";
 
 import "./styles.scss";
+import swal from "sweetalert";
 
 type Props = {
   comment: Comment;
@@ -26,7 +27,12 @@ const CommentCard = ({ comment }: Props) => {
   const { mutate: deleteComment } = useMutation(
     async (commentId: number) => deleteCommentById(commentId),
     {
-      onSuccess: () => client.invalidateQueries(["getCommentsByMovieId"]),
+      onSuccess: () => {
+        client.invalidateQueries(["getCommentsByMovieId"]);
+        swal("Seu comentário foi deletado!", {
+          icon: "success",
+        });
+      },
     }
   );
 
@@ -42,12 +48,17 @@ const CommentCard = ({ comment }: Props) => {
   };
 
   const onClickDelete = () => {
-    if (
-      confirm(
-        `Deseja realmente deletar o comentário?\n"${comment.description}"`
-      )
-    )
-      deleteComment(comment.id);
+    swal({
+      title: "Deseja realmente deletar o comentário?",
+      text: `${comment.description}`,
+      icon: "warning",
+      buttons: ["Cancelar", "Deletar"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        deleteComment(comment.id);
+      }
+    });
   };
 
   return (

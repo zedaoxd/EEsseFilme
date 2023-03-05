@@ -22,7 +22,7 @@ const ManageMovies = () => {
   const [page, setPage] = useState<Page<Movie>>();
   const [filterData, setFilterData] = useState<FilterData>({
     page: 0,
-    filter: { genre: undefined, originalTitle: "" },
+    filter: { genre: undefined, originalTitle: "", releaseDate: 0 },
   });
 
   const getMovies = useCallback(() => {

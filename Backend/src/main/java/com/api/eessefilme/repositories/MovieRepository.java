@@ -29,9 +29,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             // need coalesce COALESCE(:categories, NULL) to work on postgres but with it
             // gives error on h2
             "WHERE (:genres IS NULL OR g IN :genres) " +
-            "AND (UPPER(m.nationalTitle) LIKE UPPER(CONCAT('%', :title, '%')) OR UPPER(m.originTitle) LIKE UPPER(CONCAT('%', :title, '%')))"
-            +
-            "AND (:releaseDate IS NULL OR m.releaseDate >= :releaseDate)" +
+            "AND (UPPER(m.nationalTitle) LIKE UPPER(CONCAT('%', :title, '%')) OR UPPER(m.originTitle) LIKE UPPER(CONCAT('%', :title, '%'))) " +
+            "AND (:releaseDate IS NULL OR m.releaseDate >= :releaseDate) " +
             "AND (:averageRating IS NULL OR m.averageRating >= :averageRating)")
     Page<Movie> find(@Param("genres") List<Genre> genres, @Param("title") String title,
             @Param("releaseDate") Date releaseDate, @Param("averageRating") Double averageRating, Pageable pageable);

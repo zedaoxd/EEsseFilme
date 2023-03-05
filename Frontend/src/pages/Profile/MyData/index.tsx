@@ -67,19 +67,29 @@ const MyData = () => {
       <form onSubmit={handleSubmit(onSubimit)}>
         <label htmlFor="firstName">Nome</label>
         <input
-          {...register("firstName")}
+          {...register("firstName", {
+            required: "Campo obrigatório",
+          })}
           type="text"
           name="firstName"
           id="firstName"
         />
+        {errors.firstName && (
+          <div className="invalid-feedback">{errors.firstName.message}</div>
+        )}
 
         <label htmlFor="lastName">Sobrenome</label>
         <input
-          {...register("lastName")}
+          {...register("lastName", {
+            required: "Campo obrigatório",
+          })}
           type="text"
           name="lastName"
           id="lastName"
         />
+        {errors.lastName && (
+          <div className="invalid-feedback">{errors.lastName.message}</div>
+        )}
 
         <label htmlFor="email">E-mail</label>
         <input

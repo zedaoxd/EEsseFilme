@@ -23,10 +23,13 @@ public class MovieController {
     private MovieService service;
 
     @GetMapping
-    public ResponseEntity<Page<MovieDTO>> findAll(Pageable pageable,
-                                                  @RequestParam(value = "genreId", defaultValue = "0") Long genreId,
-                                                  @RequestParam(value = "originalTitle", defaultValue = "") String originalTitle) {
-        return ResponseEntity.ok(service.findAll(pageable, genreId, originalTitle));
+    public ResponseEntity<Page<MovieDTO>> findAll(
+            Pageable pageable,
+            @RequestParam(value = "genreId", defaultValue = "0") Long genreId,
+            @RequestParam(value = "originalTitle", defaultValue = "") String originalTitle,
+            @RequestParam(value = "releaseDate", defaultValue = "0") Long releaseDate) {
+
+        return ResponseEntity.ok(service.findAll(pageable, genreId, originalTitle, releaseDate));
     }
 
     @GetMapping(value = "/{id}")

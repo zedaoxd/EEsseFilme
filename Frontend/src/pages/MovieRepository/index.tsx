@@ -17,7 +17,7 @@ const MovieRepository = () => {
   const [controlComponentData, setControlComponentData] =
     useState<ControlComponentsData>({
       activePage: 0,
-      filterData: { genre: undefined, originalTitle: "" },
+      filterData: { genre: undefined, originalTitle: "", releaseDate: 0 },
     });
 
   const getMovies = useCallback(() => {
@@ -27,6 +27,7 @@ const MovieRepository = () => {
         size: 10,
         genreId: controlComponentData.filterData.genre?.id,
         originalTitle: controlComponentData.filterData.originalTitle,
+        releaseDate: controlComponentData.filterData.releaseDate,
       },
     }).then((r) => setPage(r));
   }, [controlComponentData]);
@@ -51,24 +52,32 @@ const MovieRepository = () => {
           <div>
             <FilterMovie onSubmitFilter={onSubmitFilter} />
           </div>
-          <div className="mr-grid-container">
-            {page.content.map((x) => (
-              <MovieCard
-                key={x.id}
-                id={x.id}
-                image={x.imageByte}
-                nationalTitle={x.nationalTitle}
-              />
-            ))}
-          </div>
+          {page.content.length === 0 ? (
+            <div className="mr-no-movie-found">
+              <h1>Nenhum filme encontrado :(</h1>
+              <img src="/images/sad.png" alt="" />
+            </div>
+          ) : (
+            <div className="mr-grid-container">
+              {page.content.map((x) => (
+                <MovieCard
+                  key={x.id}
+                  id={x.id}
+                  image={x.imageByte}
+                  nationalTitle={x.nationalTitle}
+                />
+              ))}
+            </div>
+          )}
+
           <div className="mr-pagination-container">
-            {
+            {page.content.length > 0 && (
               <AppPagination
                 page={page.number}
                 pageCount={page.totalPages}
                 onChange={handlePageChange}
               />
-            }
+            )}
           </div>
         </div>
       )}

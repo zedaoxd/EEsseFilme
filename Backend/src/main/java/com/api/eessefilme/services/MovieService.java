@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,9 +55,9 @@ public class MovieService {
     private final String PATH_IMAGE = "./src/main/resources/images/";
 
     @Transactional(readOnly = true)
-    public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle) {
+    public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle, Long releaseDate) {
         List<Genre> categories = genreId == 0 ? null : List.of(genreRepository.getReferenceById(genreId));
-        var page = repository.find(categories, originalTitle, null, null, pageable).map(x -> new MovieDTO(x, true));
+        var page = repository.find(categories, originalTitle, new Date(releaseDate), null, pageable).map(x -> new MovieDTO(x, true));
 
         for (MovieDTO m : page) {
             m.setImageByte(getImageByte(m.getImage()));

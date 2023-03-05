@@ -11,6 +11,14 @@
     display: flex;
     align-items: center;
 
+    & .mf-date {
+      height: 100%;
+  
+      & input {
+        font-size: inherit;
+      }
+    }
+
     & input {
       height: 100%;
       border: none;
