@@ -17,7 +17,7 @@ const MovieRepository = () => {
   const [controlComponentData, setControlComponentData] =
     useState<ControlComponentsData>({
       activePage: 0,
-      filterData: { genre: undefined, originalTitle: "", releaseDate: 0 },
+      filterData: { genre: undefined, originalTitle: "" },
     });
 
   const getMovies = useCallback(() => {
@@ -27,7 +27,6 @@ const MovieRepository = () => {
         size: 10,
         genreId: controlComponentData.filterData.genre?.id,
         originalTitle: controlComponentData.filterData.originalTitle,
-        releaseDate: controlComponentData.filterData.releaseDate,
       },
     }).then((r) => setPage(r));
   }, [controlComponentData]);
