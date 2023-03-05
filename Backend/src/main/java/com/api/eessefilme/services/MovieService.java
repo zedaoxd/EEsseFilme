@@ -58,7 +58,7 @@ public class MovieService {
     public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle, Long releaseDate) {
         List<Genre> categories = genreId == 0 ? null : List.of(genreRepository.getReferenceById(genreId));
         Date date = releaseDate == 0 ? null : new Date(releaseDate);
-        var page = repository.find(categories, originalTitle, date, null, pageable).map(x -> new MovieDTO(x, true));
+        var page = repository.find(categories, originalTitle, date, pageable).map(x -> new MovieDTO(x, true));
 
         for (MovieDTO m : page) {
             m.setImageByte(getImageByte(m.getImage()));
