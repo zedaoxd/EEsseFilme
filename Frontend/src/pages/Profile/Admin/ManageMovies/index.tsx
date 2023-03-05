@@ -32,6 +32,7 @@ const ManageMovies = () => {
         size: 3,
         genreId: filterData.filter.genre?.id,
         originalTitle: filterData.filter.originalTitle,
+        releaseDate: filterData.filter.releaseDate,
       },
     }).then((r) => setPage(r));
   }, [filterData]);
