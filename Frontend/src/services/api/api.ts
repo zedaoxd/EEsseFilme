@@ -2,6 +2,7 @@ import axios from "axios";
 import { getToken } from "../../utils/storage";
 
 export const BASE_URL = "https://eessefilme-production.up.railway.app/api"; //"http://localhost:8080/api";
+//"https://eessefilme-production.up.railway.app/api";
 
 export const api = axios.create({
   baseURL: BASE_URL,

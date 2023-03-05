@@ -26,8 +26,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query(value = "SELECT DISTINCT m FROM Movie m " +
             "INNER JOIN m.genres g " +
-            // need coalesce COALESCE(:categories, NULL) to work on postgres but with it
-            // gives error on h2
             "WHERE (:genres IS NULL OR g IN :genres) " +
             "AND (UPPER(m.nationalTitle) LIKE UPPER(CONCAT('%', :title, '%')) OR UPPER(m.originTitle) LIKE UPPER(CONCAT('%', :title, '%'))) " +
             "AND (:releaseDate IS NULL OR m.releaseDate >= :releaseDate) ")
