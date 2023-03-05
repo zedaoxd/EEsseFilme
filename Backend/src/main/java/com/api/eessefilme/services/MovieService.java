@@ -57,7 +57,8 @@ public class MovieService {
     @Transactional(readOnly = true)
     public Page<MovieDTO> findAll(Pageable pageable, Long genreId, String originalTitle, Long releaseDate) {
         List<Genre> categories = genreId == 0 ? null : List.of(genreRepository.getReferenceById(genreId));
-        var page = repository.find(categories, originalTitle, new Date(releaseDate), null, pageable).map(x -> new MovieDTO(x, true));
+        Date date = releaseDate == 0 ? null : Date.from(Instant.ofEpochMilli(releaseDate));
+        var page = repository.find(categories, originalTitle, date, null, pageable).map(x -> new MovieDTO(x, true));
 
         for (MovieDTO m : page) {
             m.setImageByte(getImageByte(m.getImage()));
