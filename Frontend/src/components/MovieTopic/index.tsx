@@ -45,7 +45,8 @@ const MovieTopic = ({
       <p className="mt-topic-content">{mainActors}</p>
 
       <h3 className="mt-topic-title">
-        Classificação indicativa: <span>{parentalRating}</span>
+        Classificação indicativa:{" "}
+        <span>{parentalRating === 0 ? "Livre" : parentalRating}</span>
       </h3>
 
       <RatingStar readable={false} initialValue={averageRating} />
